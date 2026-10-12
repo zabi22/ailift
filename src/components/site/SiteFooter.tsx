@@ -36,7 +36,6 @@ export function SiteFooter() {
       </div>
       <div className="container-page flex flex-wrap justify-between gap-4 border-t border-ink-foreground/10 py-6 text-xs opacity-60">
         <p>© {new Date().getFullYear()} AiLift</p>
-        <Link to="/admin" className="hover:opacity-100">{t("Administration", "Admin")}</Link>
       </div>
     </footer>
   );
