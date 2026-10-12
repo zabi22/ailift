@@ -1,6 +1,7 @@
 # AiLift roadmap
-- [x] Design system, nav, SV/EN toggle, public pages
-- [x] Cloud schema + security, seed services
-- [x] Booking flow + contact form
-- [x] Admin dashboard + availability
-- [x] SEO, test workflow
+- [x] Public site, SV/EN, service pages
+- [ ] Remove admin, accounts, auth
+- [ ] Remove stored bookings/messages; delete test data; lock tables
+- [ ] Booking + contact via prefilled email draft (no storage)
+- [ ] Update privacy notice; test
+- [ ] Owner contact email (blocked: needs the address from the owner)
