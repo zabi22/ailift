@@ -34,6 +34,7 @@ const STATUS_LABEL: Record<string, [string, string]> = {
   cancelled: ["Avbokad", "Cancelled"],
   completed: ["Genomförd", "Completed"],
 };
+const label = (s: string, lang: string) => (STATUS_LABEL[s] ?? [s, s])[lang === "sv" ? 0 : 1];
 const WEEKDAYS: [string, string][] = [["Sön", "Sun"], ["Mån", "Mon"], ["Tis", "Tue"], ["Ons", "Wed"], ["Tor", "Thu"], ["Fre", "Fri"], ["Lör", "Sat"]];
 
 function Admin() {
@@ -129,7 +130,7 @@ function Bookings() {
       <div className="grid gap-3 sm:grid-cols-5">
         {STATUSES.map((s) => (
           <div key={s} className="rounded-xl border border-border bg-card p-4">
-            <p className="eyebrow">{STATUS_LABEL[s][lang === "sv" ? 0 : 1]}</p>
+            <p className="eyebrow">{label(s, lang)}</p>
             <p className="mt-1 font-display text-3xl">{counts[s]}</p>
           </div>
         ))}
@@ -137,7 +138,7 @@ function Bookings() {
       <div className="flex flex-wrap gap-3">
         <select className="h-9 rounded-md border border-input bg-background px-3 text-sm" value={status} onChange={(e) => setStatus(e.target.value)} aria-label="Status">
           <option value="all">{t("Alla statusar", "All statuses")}</option>
-          {STATUSES.map((s) => <option key={s} value={s}>{STATUS_LABEL[s][lang === "sv" ? 0 : 1]}</option>)}
+          {STATUSES.map((s) => <option key={s} value={s}>{label(s, lang)}</option>)}
         </select>
         <select className="h-9 rounded-md border border-input bg-background px-3 text-sm" value={service} onChange={(e) => setService(e.target.value)} aria-label={t("Tjänst", "Service")}>
           <option value="all">{t("Alla tjänster", "All services")}</option>
@@ -153,7 +154,7 @@ function Bookings() {
                 <p className="font-semibold">{b.name} <span className="font-normal text-muted-foreground">· {b.organization || b.email}</span></p>
                 <p className="text-sm text-muted-foreground">{b.reference} · {SERVICES.find((s) => s.slug === b.service_slug)?.title[lang]} · {b.preferred_date}</p>
               </div>
-              <Badge variant={b.status === "pending" ? "default" : "secondary"}>{STATUS_LABEL[b.status][lang === "sv" ? 0 : 1]}</Badge>
+              <Badge variant={b.status === "pending" ? "default" : "secondary"}>{label(b.status, lang)}</Badge>
             </button>
             {openId === b.id && <BookingEditor booking={b} />}
           </li>
@@ -213,7 +214,7 @@ function BookingEditor({ booking: b }: { booking: BookingRow }) {
       <div className="space-y-3">
         <label className="block text-sm">Status
           <select className="mt-1 h-9 w-full rounded-md border border-input bg-background px-3" value={form.status} onChange={(e) => setForm({ ...form, status: e.target.value })}>
-            {STATUSES.map((s) => <option key={s} value={s}>{STATUS_LABEL[s][lang === "sv" ? 0 : 1]}</option>)}
+            {STATUSES.map((s) => <option key={s} value={s}>{label(s, lang)}</option>)}
           </select>
         </label>
         <label className="block text-sm">{t("Överenskommet datum", "Agreed date")}<Input type="date" className="mt-1" value={form.agreed_date} onChange={(e) => setForm({ ...form, agreed_date: e.target.value })} /></label>
@@ -278,7 +279,7 @@ function Availability() {
     refresh();
   }
   async function updateRule(id: string, field: "start_time" | "end_time", value: string) {
-    const { error } = await supabase.from("availability_rules").update({ [field]: value }).eq("id", id);
+    const { error } = await supabase.from("availability_rules").update(field === "start_time" ? { start_time: value } : { end_time: value }).eq("id", id);
     if (error) toast.error(t("Sluttiden måste vara efter starttiden.", "End time must be after start time."));
     refresh();
   }
@@ -303,7 +304,7 @@ function Availability() {
             return (
               <li key={wd} className="flex items-center gap-3 rounded-xl border border-border bg-card p-3">
                 <label className="flex w-24 items-center gap-2 text-sm font-semibold">
-                  <input type="checkbox" checked={!!r} onChange={() => toggleDay(wd)} /> {WEEKDAYS[wd][lang === "sv" ? 0 : 1]}
+                  <input type="checkbox" checked={!!r} onChange={() => toggleDay(wd)} /> {WEEKDAYS[wd]![lang === "sv" ? 0 : 1]}
                 </label>
                 {r && (
                   <>
@@ -346,9 +347,9 @@ function ServicesAdmin() {
     e.preventDefault();
     const fd = Object.fromEntries(new FormData(e.currentTarget)) as Record<string, string>;
     const { error } = await supabase.from("services").update({
-      price_sv: fd.price_sv || null, price_en: fd.price_en || null,
-      duration_sv: fd.duration_sv || null, duration_en: fd.duration_en || null,
-      active: fd.active === "on", updated_at: new Date().toISOString(),
+      price_sv: fd["price_sv"] || null, price_en: fd["price_en"] || null,
+      duration_sv: fd["duration_sv"] || null, duration_en: fd["duration_en"] || null,
+      active: fd["active"] === "on", updated_at: new Date().toISOString(),
     }).eq("slug", slug);
     if (error) toast.error(error.message);
     else { toast.success(t("Sparat", "Saved")); qc.invalidateQueries({ queryKey: ["admin-services"] }); qc.invalidateQueries({ queryKey: ["service-config"] }); }

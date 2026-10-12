@@ -24,7 +24,7 @@ export const Route = createFileRoute("/contact")({
 
 function Contact() {
   const { t } = useLang();
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<Partial<Record<"name" | "email" | "message", string>>>({});
   const [sent, setSent] = useState(false);
   const [busy, setBusy] = useState(false);
   const [serverError, setServerError] = useState("");
@@ -39,10 +39,10 @@ function Contact() {
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const fd = Object.fromEntries(new FormData(e.currentTarget));
-    if (fd.website) return; // honeypot
+    if (fd["website"]) return; // honeypot
     const parsed = schema.safeParse(fd);
     if (!parsed.success) {
-      setErrors(Object.fromEntries(parsed.error.issues.map((i) => [i.path[0], i.message])));
+      setErrors(Object.fromEntries(parsed.error.issues.map((i) => [i.path[0], i.message])) as Partial<Record<"name" | "email" | "message", string>>);
       return;
     }
     setErrors({});

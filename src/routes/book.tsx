@@ -29,6 +29,8 @@ export const Route = createFileRoute("/book")({
   component: Book,
 });
 
+type Errs = Partial<Record<"service" | "audience" | "format" | "date" | "time" | "participants" | "goals" | "name" | "email" | "phone" | "consent", string>>;
+
 type Form = {
   service: string;
   audience: string;
@@ -55,11 +57,11 @@ function Book() {
   const navigate = useNavigate();
   const { data: avail } = useQuery(availabilityQuery);
   const [step, setStep] = useState(0);
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<Errs>({});
   const [busy, setBusy] = useState(false);
   const [serverError, setServerError] = useState("");
   const [f, setF] = useState<Form>({
-    service: SERVICES.some((s) => s.slug === search.service) ? search.service! : "",
+    service: SERVICES.some((s) => s.slug === search.service) ? (search.service as string) : "",
     audience: "",
     format: "",
     participants: "",
@@ -91,7 +93,7 @@ function Book() {
   ];
 
   function validate(s: number) {
-    const e: Record<string, string> = {};
+    const e: Errs = {};
     if (s === 0) {
       if (!f.service) e.service = t("Välj en tjänst", "Choose a service");
       if (!f.audience) e.audience = t("Välj vem bokningen gäller", "Choose who the booking is for");
@@ -136,7 +138,7 @@ function Book() {
     setBusy(false);
     if (error) {
       const key = Object.keys(ERR).find((k) => error.message.includes(k));
-      setServerError(key ? ERR[key][lang === "sv" ? 0 : 1] : t("Något gick fel. Kontrollera uppgifterna och försök igen.", "Something went wrong. Please check your details and try again."));
+      setServerError(key ? ERR[key]![lang === "sv" ? 0 : 1] : t("Något gick fel. Kontrollera uppgifterna och försök igen.", "Something went wrong. Please check your details and try again."));
       if (key === "date_unavailable") setStep(1);
       return;
     }
