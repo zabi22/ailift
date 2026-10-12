@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Copy, Mail, Send } from "lucide-react";
+import { CheckCircle2, Copy, Mail, Send } from "lucide-react";
 import { sendRequest } from "@/lib/send-request.functions";
 import { useLang } from "@/lib/i18n";
 import { buildMailto, copyText, resolveContactEmail } from "@/lib/contact";
@@ -51,6 +51,23 @@ export function SendActions({
 
   const copyLabel = kind === "booking" ? t("Kopiera bokningsförfrågan", "Copy booking request") : t("Kopiera meddelande", "Copy contact message");
 
+  if (sendState === "sent") {
+    return (
+      <div role="status" aria-live="polite" className="rounded-2xl border-2 border-primary bg-card p-8 text-center">
+        <CheckCircle2 className="mx-auto size-14 text-primary" />
+        <h3 className="mt-4 text-3xl">{t("Ditt meddelande har skickats!", "Your message has been sent!")}</h3>
+        <p className="mt-3 text-muted-foreground">
+          {kind === "booking"
+            ? t("Din bokningsförfrågan har skickats till AiLift. Du får svar via e-post. Bokningen är bekräftad först när AiLift har svarat.", "Your booking request has been sent to AiLift. You'll get a reply by email. The booking is confirmed once AiLift replies.")
+            : t("Ditt meddelande har skickats till AiLift. Du får svar via e-post så snart som möjligt.", "Your message has been sent to AiLift. You'll get a reply by email as soon as possible.")}
+        </p>
+        <Button type="button" variant="pillOutline" size="xl" className="mt-6" onClick={() => { onClear(); setSendState(""); }}>
+          {kind === "booking" ? t("Skicka en ny förfrågan", "Send another request") : t("Skicka ett nytt meddelande", "Send another message")}
+        </Button>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-4">
       {!email && (
@@ -85,11 +102,7 @@ export function SendActions({
         </p>
       )}
       <div aria-live="polite">
-        {sendState === "sent" && (
-          <p className="rounded-lg border border-border bg-card p-4 text-sm">
-            {t("Skickat till AiLift. Du får svar via e-post. Bokningen är inte bekräftad förrän AiLift har svarat.", "Sent to AiLift. You'll get a reply by email. The booking isn't confirmed until AiLift replies.")}
-          </p>
-        )}
+
         {sendState === "failed" && (
           <p className="rounded-lg bg-muted p-4 text-sm">
             {t("Det gick inte att skicka just nu. Använd e-postutkastet eller kopiera meddelandet istället.", "Couldn't send right now. Please use the email draft or copy the message instead.")}
