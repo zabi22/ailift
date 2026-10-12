@@ -10,7 +10,7 @@
 <!-- LOVABLE:END -->
 
 ## AiLift architecture
-- Booking and contact forms only build a `mailto:` draft via `src/lib/contact.ts` (owner address in `PUBLIC_CONTACT_EMAIL`; empty = copy-to-clipboard only) — the site must not persist visitor data anywhere.
+- Booking and contact forms send directly to the owner via a Resend server function (`src/lib/send-request.functions.ts`, key `RESEND_API_KEY`, optional `RESEND_FROM`); mailto draft and copy remain as fallbacks. Nothing is persisted.
 - Legacy Cloud tables (bookings, contact_messages, user_roles, admin_bootstrap, services, availability_rules, blocked_dates) are deprecated with all anon/authenticated grants revoked; do not wire them back in.
 - Bilingual copy is inline via `useLang().t(sv, en)`; service content lives in `src/lib/services.ts`, portfolio in `src/lib/projects.ts` (every project carries an explicit status), booking session types in `src/lib/booking.ts`.
 - The /demo sandbox is deterministic sample data in `src/lib/demo.ts`; it must stay labelled as non-live and never call external services.
