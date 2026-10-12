@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { Button } from "@/components/ui/button";
+import logo from "@/assets/ailift-logo.png";
 
 export function SiteHeader() {
   const { lang, setLang, t } = useLang();
@@ -36,8 +37,8 @@ export function SiteHeader() {
         {t("Hoppa till innehåll", "Skip to content")}
       </a>
       <div className="container-page flex h-16 items-center justify-between gap-6">
-        <Link to="/" className="flex items-baseline gap-1 font-display text-2xl tracking-tight" onClick={() => setOpen(false)}>
-          AiLift<span className="inline-block size-2 rounded-full bg-lime" aria-hidden />
+        <Link to="/" className="flex items-center" aria-label="AiLift" onClick={() => setOpen(false)}>
+          <img src={logo} alt="AiLift" width={870} height={250} className="h-7 w-auto" />
         </Link>
         <nav className="hidden items-center gap-8 text-sm md:flex" aria-label={t("Huvudmeny", "Main menu")}>
           {links.map((l) => (
