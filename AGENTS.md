@@ -10,6 +10,6 @@
 <!-- LOVABLE:END -->
 
 ## AiLift architecture
-- Booking and contact forms only build a `mailto:` draft via `src/lib/contact.ts` (owner address in `CONTACT_EMAIL`) — the site must not persist visitor data anywhere.
+- Booking and contact forms only build a `mailto:` draft via `src/lib/contact.ts` (owner address in `PUBLIC_CONTACT_EMAIL`; empty = copy-to-clipboard only) — the site must not persist visitor data anywhere.
 - Legacy Cloud tables (bookings, contact_messages, user_roles, admin_bootstrap, services, availability_rules, blocked_dates) are deprecated with all anon/authenticated grants revoked; do not wire them back in.
 - Bilingual copy is inline via `useLang().t(sv, en)`; service content lives in `src/lib/services.ts`.
