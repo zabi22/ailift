@@ -1,10 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { z } from "zod";
-import { ArrowLeft, ArrowRight, Mail } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { SERVICES } from "@/lib/services";
-import { CONTACT_EMAIL, buildMailto } from "@/lib/contact";
+import { formatMessage } from "@/lib/contact";
+import { SendActions } from "@/components/site/SendActions";
 import { PageHeader } from "@/components/site/PageHeader";
 import { Field } from "@/components/site/Field";
 import { Button } from "@/components/ui/button";
@@ -46,7 +47,7 @@ function Book() {
   const search = Route.useSearch();
   const [step, setStep] = useState(0);
   const [errors, setErrors] = useState<Errs>({});
-  const [f, setF] = useState<Form>({
+  const empty = (): Form => ({
     service: SERVICES.some((s) => s.slug === search.service) ? (search.service as string) : "",
     audience: "",
     format: "",
@@ -59,6 +60,7 @@ function Book() {
     phone: "",
     organization: "",
   });
+  const [f, setF] = useState<Form>(empty);
   const set = <K extends keyof Form>(k: K, v: Form[K]) => setF((p) => ({ ...p, [k]: v }));
 
   const audiences = [
@@ -101,21 +103,24 @@ function Book() {
   }
 
   const svcTitle = (l: "sv" | "en") => SERVICES.find((x) => x.slug === f.service)?.title[l] ?? "";
-  function mailtoHref() {
+  function getMessage() {
     const label = (list: [string, string][], v: string) => list.find((x) => x[0] === v)?.[1] ?? v;
-    return buildMailto(CONTACT_EMAIL, `${t("Bokningsförfrågan", "Booking request")}: ${svcTitle(lang)}`, [
+    return formatMessage([
+      `${t("Bokningsförfrågan till AiLift", "Booking request for AiLift")}`,
+      "",
       `${t("Tjänst", "Service")}: ${svcTitle(lang)}`,
       `${t("Gäller", "For")}: ${label(audiences, f.audience)}`,
       `${t("Format", "Format")}: ${label(formats, f.format)}`,
       `${t("Önskat datum", "Preferred date")}: ${f.date} (${label(times, f.time)})`,
-      f.participants && `${t("Deltagare", "Participants")}: ${f.participants}`,
+      f.participants && `${t("Antal deltagare", "Participants")}: ${f.participants}`,
       "",
       `${t("Mål och ämnen", "Goals and topics")}:`,
       f.goals.trim(),
       "",
-      f.name.trim(),
-      f.organization.trim(),
+      `${t("Namn", "Name")}: ${f.name.trim()}`,
+      `${t("E-post", "Email")}: ${f.email.trim()}`,
       f.phone.trim() && `${t("Telefon", "Phone")}: ${f.phone.trim()}`,
+      f.organization.trim() && `${t("Organisation", "Organisation")}: ${f.organization.trim()}`,
     ]);
   }
 
@@ -138,7 +143,7 @@ function Book() {
       <PageHeader
         eyebrow={t("Bokningsförfrågan", "Booking request")}
         title={t("Berätta vad ni behöver.", "Tell us what you need.")}
-        intro={t("Fyll i dina önskemål så skapas ett färdigt e-postmeddelande som du själv skickar. Inget sparas på webbplatsen.", "Fill in your preferences and we create a ready-made email that you send yourself. Nothing is stored on the website.")}
+        intro={t("Fyll i dina önskemål så formuleras ett färdigt meddelande som du själv skickar till AiLift. Inget skickas eller sparas av webbplatsen.", "Fill in your preferences and we format a ready-made message that you send to AiLift yourself. Nothing is sent or stored by the website.")}
       />
       <section className="container-page max-w-3xl">
         <ol className="mb-10 flex gap-2" aria-label={t("Steg", "Steps")}>
@@ -227,11 +232,10 @@ function Book() {
                 <div><dt className="text-muted-foreground">{t("Deltagare", "Participants")}</dt><dd className="font-semibold">{f.participants || "—"}</dd></div>
               </dl>
             </div>
-            <p className="text-sm text-muted-foreground">{t("När du klickar nedan öppnas ett färdigt e-postutkast i ditt e-postprogram. Du kan granska det och skickar det själv — webbplatsen sparar inga uppgifter.", "Clicking below opens a prefilled email draft in your email app. You can review it and send it yourself — the website stores nothing.")}</p>
+            <p className="text-sm text-muted-foreground">{t("Dina uppgifter stannar i den här webbläsarfliken och sparas inte av webbplatsen.", "Your details stay in this browser tab and are not stored by the website.")}</p>
           </div>
         )}
 
-        {step === 2 && !CONTACT_EMAIL && <p className="mt-6 rounded-lg bg-muted p-4 text-sm" role="status">{t("Kontaktadressen är inte konfigurerad ännu, så förfrågan kan inte skickas just nu.", "The contact address isn't configured yet, so requests can't be sent right now.")}</p>}
 
         <div className="mt-10 flex justify-between gap-4 border-t border-border pt-6">
           {step > 0 ? (
@@ -239,16 +243,19 @@ function Book() {
           ) : <span />}
           {step < 2 ? (
             <Button variant="pill" size="xl" onClick={() => validate(step) && setStep(step + 1)}>{t("Fortsätt", "Continue")} <ArrowRight /></Button>
-          ) : (
-            CONTACT_EMAIL ? (
-              <Button asChild variant="lime" size="xl">
-                <a href={mailtoHref()} onClick={(e) => { if (!validate(2)) e.preventDefault(); }}>{t("Öppna e-postutkast", "Open email draft")} <Mail /></a>
-              </Button>
-            ) : (
-              <Button variant="lime" size="xl" disabled>{t("Öppna e-postutkast", "Open email draft")} <Mail /></Button>
-            )
-          )}
+          ) : <span />}
         </div>
+        {step === 2 && (
+          <div className="mt-6">
+            <SendActions
+              kind="booking"
+              subject={`${t("Bokningsförfrågan", "Booking request")}: ${svcTitle(lang)}`}
+              getMessage={getMessage}
+              validate={() => validate(2)}
+              onClear={() => { setF(empty()); setErrors({}); setStep(0); }}
+            />
+          </div>
+        )}
       </section>
     </>
   );
