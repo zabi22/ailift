@@ -8,7 +8,7 @@ import { PageHeader } from "@/components/site/PageHeader";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
+import { Field } from "@/components/site/Field";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -82,15 +82,5 @@ function Contact() {
         )}
       </section>
     </>
-  );
-}
-
-export function Field({ id, label, error, children }: { id: string; label: string; error?: string; children: React.ReactNode }) {
-  return (
-    <div className="space-y-2">
-      <Label htmlFor={id}>{label}</Label>
-      {children}
-      {error && <p className="text-sm text-destructive" role="alert">{error}</p>}
-    </div>
   );
 }
