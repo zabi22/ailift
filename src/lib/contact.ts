@@ -6,7 +6,7 @@
  * "Open email draft" button opens the visitor's own email app (mailto:) with the
  * message prefilled. The website never sends or stores anything itself.
  */
-export const PUBLIC_CONTACT_EMAIL = "";
+export const PUBLIC_CONTACT_EMAIL = "ailift.contact@gmail.com";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
