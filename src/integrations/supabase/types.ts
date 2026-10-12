@@ -14,16 +14,246 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      availability_rules: {
+        Row: {
+          end_time: string
+          id: string
+          start_time: string
+          weekday: number
+        }
+        Insert: {
+          end_time: string
+          id?: string
+          start_time: string
+          weekday: number
+        }
+        Update: {
+          end_time?: string
+          id?: string
+          start_time?: string
+          weekday?: number
+        }
+        Relationships: []
+      }
+      blocked_dates: {
+        Row: {
+          date: string
+          reason: string | null
+        }
+        Insert: {
+          date: string
+          reason?: string | null
+        }
+        Update: {
+          date?: string
+          reason?: string | null
+        }
+        Relationships: []
+      }
+      bookings: {
+        Row: {
+          admin_notes: string | null
+          agreed_date: string | null
+          agreed_duration: string | null
+          agreed_price: string | null
+          alternative_date: string | null
+          audience: string
+          consent: boolean
+          created_at: string
+          email: string
+          format: string
+          goals: string
+          id: string
+          language: string
+          name: string
+          organization: string | null
+          participants: number | null
+          phone: string | null
+          preferred_date: string
+          preferred_time: string
+          reference: string
+          service_slug: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          admin_notes?: string | null
+          agreed_date?: string | null
+          agreed_duration?: string | null
+          agreed_price?: string | null
+          alternative_date?: string | null
+          audience: string
+          consent?: boolean
+          created_at?: string
+          email: string
+          format: string
+          goals: string
+          id?: string
+          language?: string
+          name: string
+          organization?: string | null
+          participants?: number | null
+          phone?: string | null
+          preferred_date: string
+          preferred_time: string
+          reference: string
+          service_slug: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          admin_notes?: string | null
+          agreed_date?: string | null
+          agreed_duration?: string | null
+          agreed_price?: string | null
+          alternative_date?: string | null
+          audience?: string
+          consent?: boolean
+          created_at?: string
+          email?: string
+          format?: string
+          goals?: string
+          id?: string
+          language?: string
+          name?: string
+          organization?: string | null
+          participants?: number | null
+          phone?: string | null
+          preferred_date?: string
+          preferred_time?: string
+          reference?: string
+          service_slug?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bookings_service_slug_fkey"
+            columns: ["service_slug"]
+            isOneToOne: false
+            referencedRelation: "services"
+            referencedColumns: ["slug"]
+          },
+        ]
+      }
+      contact_messages: {
+        Row: {
+          created_at: string
+          email: string
+          handled: boolean
+          id: string
+          message: string
+          name: string
+          organization: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          handled?: boolean
+          id?: string
+          message: string
+          name: string
+          organization?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          handled?: boolean
+          id?: string
+          message?: string
+          name?: string
+          organization?: string | null
+        }
+        Relationships: []
+      }
+      services: {
+        Row: {
+          active: boolean
+          duration_en: string | null
+          duration_sv: string | null
+          price_en: string | null
+          price_sv: string | null
+          slug: string
+          sort: number
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          duration_en?: string | null
+          duration_sv?: string | null
+          price_en?: string | null
+          price_sv?: string | null
+          slug: string
+          sort?: number
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          duration_en?: string | null
+          duration_sv?: string | null
+          price_en?: string | null
+          price_sv?: string | null
+          slug?: string
+          sort?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      admin_exists: { Args: never; Returns: boolean }
+      claim_first_admin: { Args: never; Returns: boolean }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      submit_booking: {
+        Args: {
+          _alt_date: string
+          _audience: string
+          _consent: boolean
+          _date: string
+          _email: string
+          _format: string
+          _goals: string
+          _language: string
+          _name: string
+          _organization: string
+          _participants: number
+          _phone: string
+          _service: string
+          _time: string
+        }
+        Returns: string
+      }
+      taken_dates: { Args: never; Returns: string[] }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +380,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin"],
+    },
   },
 } as const
