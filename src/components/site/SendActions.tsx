@@ -85,7 +85,7 @@ export function SendActions({
         <Button type="button" variant="ghost" size="xl" onClick={onCopy}>
           {copyLabel} <Copy />
         </Button>
-        <Button type="button" variant="lime" size="xl" onClick={onSend} disabled={sendState === "sending" || sendState === "sent"}>
+        <Button type="button" variant="lime" size="xl" onClick={onSend} disabled={sendState === "sending"}>
           {sendState === "sending" ? t("Skickar…", "Sending…") : t("Skicka till AiLift", "Send to AiLift")} <Send />
         </Button>
         {email && (
