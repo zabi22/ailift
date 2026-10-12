@@ -1,0 +1,98 @@
+import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
+import { ArrowLeft, ArrowRight, Check } from "lucide-react";
+import { useLang } from "@/lib/i18n";
+import { getService } from "@/lib/services";
+import { serviceConfigQuery } from "@/lib/service-config";
+import { Button } from "@/components/ui/button";
+
+export const Route = createFileRoute("/services/$slug")({
+  loader: ({ params }) => {
+    const service = getService(params.slug);
+    if (!service) throw notFound();
+    return { slug: service.slug, title: service.title.sv, short: service.short.sv };
+  },
+  head: ({ loaderData }) => ({
+    meta: loaderData
+      ? [
+          { title: `${loaderData.title} — AiLift` },
+          { name: "description", content: loaderData.short },
+          { property: "og:title", content: `${loaderData.title} — AiLift` },
+          { property: "og:description", content: loaderData.short },
+        ]
+      : [{ title: "Tjänst — AiLift" }, { name: "robots", content: "noindex" }],
+  }),
+  component: ServiceDetail,
+});
+
+function ServiceDetail() {
+  const { slug } = Route.useLoaderData();
+  const s = getService(slug)!;
+  const { lang, t } = useLang();
+  const { data: configs } = useQuery(serviceConfigQuery);
+  const cfg = configs?.find((c) => c.slug === slug);
+  const price = lang === "sv" ? cfg?.price_sv : cfg?.price_en;
+  const duration = lang === "sv" ? cfg?.duration_sv : cfg?.duration_en;
+
+  return (
+    <>
+      <section className="container-page pt-10">
+        <Link to="/services" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
+          <ArrowLeft className="size-4" /> {t("Alla tjänster", "All services")}
+        </Link>
+      </section>
+      <section className="container-page grid gap-12 pb-16 pt-8 md:grid-cols-12">
+        <div className="md:col-span-7">
+          <p className="eyebrow">{s.formats[lang]}</p>
+          <h1 className="mt-4 text-5xl md:text-7xl">{s.title[lang]}</h1>
+          <p className="mt-8 text-xl text-muted-foreground">{s.intro[lang]}</p>
+        </div>
+        <aside className="md:col-span-5">
+          <div className="sticky top-24 rounded-2xl border border-border bg-card p-8">
+            <dl className="space-y-5">
+              <div>
+                <dt className="eyebrow">{t("Pris", "Price")}</dt>
+                <dd className="mt-1 font-display text-2xl">{price || t("Begär offert", "Request a quote")}</dd>
+              </div>
+              <div>
+                <dt className="eyebrow">{t("Längd", "Duration")}</dt>
+                <dd className="mt-1">{duration || t("Anpassas efter behov", "Adapted to your needs")}</dd>
+              </div>
+              <div>
+                <dt className="eyebrow">{t("Format", "Format")}</dt>
+                <dd className="mt-1">{s.formats[lang]}</dd>
+              </div>
+            </dl>
+            <Button asChild variant="lime" size="xl" className="mt-8 w-full">
+              <Link to="/book" search={{ service: s.slug }}>{t("Skicka bokningsförfrågan", "Request a booking")} <ArrowRight /></Link>
+            </Button>
+            <p className="mt-3 text-center text-xs text-muted-foreground">{t("Kostnadsfritt och utan förpliktelser.", "Free and without obligation.")}</p>
+          </div>
+        </aside>
+      </section>
+      <img src={s.image} alt="" loading="lazy" className="container-page aspect-[21/9] rounded-2xl object-cover px-0" />
+      <section className="container-page grid gap-12 py-20 md:grid-cols-3">
+        <div>
+          <h2 className="text-3xl">{t("För vem?", "Who is it for?")}</h2>
+          <p className="mt-4 text-muted-foreground">{s.forWho[lang]}</p>
+        </div>
+        <div>
+          <h2 className="text-3xl">{t("Resultat", "Outcomes")}</h2>
+          <ul className="mt-4 space-y-3">
+            {s.outcomes[lang].map((o) => (
+              <li key={o} className="flex gap-3"><Check className="mt-1 size-4 shrink-0" />{o}</li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h2 className="text-3xl">{t("Det ingår", "What's included")}</h2>
+          <ul className="mt-4 space-y-3">
+            {s.includes[lang].map((o) => (
+              <li key={o} className="flex gap-3"><Check className="mt-1 size-4 shrink-0" />{o}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    </>
+  );
+}
