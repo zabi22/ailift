@@ -110,7 +110,7 @@ function Book() {
 
   const faqs: [string, string, string, string][] = [
     ["Vad kostar en session?", "Priset beror på behov, längd, antal deltagare och hur mycket upplägget anpassas. Du får ett prisförslag efter att vi gått igenom din förfrågan.", "How much does a session cost?", "The price depends on your needs, length, number of participants and level of customization. You'll get a price proposal after we've reviewed your request."],
-    ["Vad händer när jag har skickat en förfrågan?", "AiLift läser förfrågan och hör av sig för att stämma av omfattning, datum och pris.", "What happens after I submit a request?", "AiLift reads your request and gets in touch to discuss scope, dates and price."],
+    ["Vad händer när jag har skickat en förfrågan?", "AiLift läser förfrågan och svarar inom 24 timmar för att stämma av omfattning, datum och pris.", "What happens after I submit a request?", "AiLift reads your request and answers within 24 hours to discuss scope, dates and price."],
     ["Blir mitt önskade datum automatiskt bekräftat?", "Nej. Datumet är ett önskemål och kan inte garanteras. Inget är bekräftat förrän vi båda är överens.", "Is the requested date automatically confirmed?", "No. The date is a preference and can't be guaranteed. Nothing is confirmed until we both agree."],
     ["Kan workshopen anpassas för vår organisation?", "Ja, innehållet anpassas efter er verksamhet, era uppgifter och deltagarnas nivå.", "Can a workshop be customized for my organization?", "Yes, the content is adapted to your organization, tasks and participants' level."],
     ["Kan jag önska en session online?", "Ja, välj online som format i formuläret.", "Can I request an online session?", "Yes, choose online as the format in the form."],
