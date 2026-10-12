@@ -36,7 +36,7 @@ function Home() {
 
   const steps = [
     { n: "01", title: t("Berätta vad ni vill uppnå", "Tell us what you want to achieve"), text: t("Välj en tjänst och beskriv era mål och önskade datum.", "Pick a service and describe your goals and preferred dates.") },
-    { n: "02", title: t("Skicka en förfrågan", "Send a request"), text: t("Din förfrågan sparas och får ett referensnummer direkt.", "Your request is saved and gets a reference number immediately.") },
+    { n: "02", title: t("Skicka ett e-postmeddelande", "Send an email"), text: t("Formuläret skapar ett färdigt e-postutkast som du granskar och skickar själv.", "The form creates a ready-made email draft that you review and send yourself.") },
     { n: "03", title: t("Vi stämmer av och bekräftar", "We agree on details and confirm"), text: t("Zabihullah kontaktar dig, går igenom upplägget och bekräftar bokningen.", "Zabihullah contacts you, goes through the details and confirms the booking.") },
   ];
 
