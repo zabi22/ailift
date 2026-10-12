@@ -77,7 +77,7 @@ function Contact() {
       <PageHeader
         eyebrow={t("Kontakt", "Contact")}
         title={t("Diskutera ett projekt.", "Discuss a project.")}
-        intro={t("Beskriv problemet du vill lösa. Formuläret skapar ett e-postutkast som du granskar och skickar från din egen e-post – webbplatsen skickar eller sparar ingenting.", "Describe the problem you want to solve. The form creates an email draft that you review and send from your own email – the website sends and stores nothing.")}
+        intro={t("Beskriv problemet du vill lösa. Du kan skicka meddelandet direkt till AiLift eller öppna ett e-postutkast som du själv skickar. Webbplatsen sparar ingenting.", "Describe the problem you want to solve. Send the message straight to AiLift or open an email draft you send yourself. The website stores nothing.")}
       />
       <section className="container-page grid max-w-5xl gap-12 md:grid-cols-12">
         <div className="space-y-6 md:col-span-8">

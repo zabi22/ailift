@@ -124,7 +124,7 @@ function Book() {
       <PageHeader
         eyebrow={t("Bokningsförfrågan", "Booking request")}
         title={t("Berätta vad ni behöver.", "Tell us what you need.")}
-        intro={t("Fyll i dina önskemål så formuleras ett färdigt mejl som du själv skickar till AiLift. Inget skickas eller sparas av webbplatsen.", "Fill in your preferences and we format a ready-made email that you send to AiLift yourself. Nothing is sent or stored by the website.")}
+        intro={t("Fyll i dina önskemål. Du kan skicka förfrågan direkt till AiLift eller öppna ett färdigt e-postutkast som du själv skickar. Webbplatsen sparar ingenting.", "Fill in your preferences. Send the request straight to AiLift or open a ready-made email draft you send yourself. The website stores nothing.")}
       />
 
       <section className="container-page max-w-3xl">
