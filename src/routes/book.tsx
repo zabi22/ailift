@@ -249,7 +249,7 @@ function Book() {
           <div className="mt-6">
             <SendActions
               kind="booking"
-              subject={`${t("Bokningsförfrågan", "Booking request")}: ${svcTitle(lang)}`}
+              subject={`${t("Ny bokningsförfrågan till AiLift", "New AiLift workshop booking request")}: ${svcTitle(lang)}`}
               getMessage={getMessage}
               validate={() => validate(2)}
               onClear={() => { setF(empty()); setErrors({}); setStep(0); }}
