@@ -5,4 +5,7 @@
 - [x] Booking + contact via prefilled email draft (no storage)
 - [x] Update privacy notice; test
 - [x] Copy-message fallback + PUBLIC_CONTACT_EMAIL setting; local fonts; launch QA
-- [ ] Public contact email (owner fills PUBLIC_CONTACT_EMAIL when ready)
+- [x] Public contact email (ailift.contact@gmail.com)
+- [x] Studio repositioning: 4 services, portfolio, sandbox, contact form
+- [ ] Sitemap + canonical URLs (needs the real published domain)
+- [ ] Geomagnetic research details (needs material from owner)
