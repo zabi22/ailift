@@ -14,6 +14,27 @@ export type Database = {
   }
   public: {
     Tables: {
+      admin_bootstrap: {
+        Row: {
+          consumed_at: string | null
+          consumed_by: string | null
+          id: boolean
+          owner_email: string | null
+        }
+        Insert: {
+          consumed_at?: string | null
+          consumed_by?: string | null
+          id?: boolean
+          owner_email?: string | null
+        }
+        Update: {
+          consumed_at?: string | null
+          consumed_by?: string | null
+          id?: boolean
+          owner_email?: string | null
+        }
+        Relationships: []
+      }
       availability_rules: {
         Row: {
           end_time: string
@@ -223,6 +244,7 @@ export type Database = {
     }
     Functions: {
       admin_exists: { Args: never; Returns: boolean }
+      can_claim_admin: { Args: never; Returns: boolean }
       claim_first_admin: { Args: never; Returns: boolean }
       has_role: {
         Args: {

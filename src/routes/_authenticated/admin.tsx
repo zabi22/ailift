@@ -47,8 +47,8 @@ function Admin() {
     queryKey: ["admin-role", user.id],
     queryFn: async () => {
       const { data: isAdmin } = await supabase.rpc("has_role", { _user_id: user.id, _role: "admin" });
-      const { data: exists } = await supabase.rpc("admin_exists");
-      return { isAdmin: !!isAdmin, adminExists: !!exists };
+      const { data: canClaim } = await supabase.rpc("can_claim_admin");
+      return { isAdmin: !!isAdmin, canClaim: !!canClaim };
     },
   });
 
@@ -71,9 +71,9 @@ function Admin() {
     return (
       <section className="container-page max-w-lg py-24">
         <h1 className="text-4xl">{t("Ingen åtkomst", "No access")}</h1>
-        {!role.data?.adminExists ? (
+        {role.data?.canClaim ? (
           <>
-            <p className="mt-4 text-muted-foreground">{t("Ingen administratör finns ännu. Som ägare kan du aktivera administratörsrollen för ditt konto en gång. Därefter stängs funktionen automatiskt.", "No administrator exists yet. As the owner you can activate the administrator role for your account once. After that this option closes automatically.")}</p>
+            <p className="mt-4 text-muted-foreground">{t("Ditt verifierade konto matchar den godkända ägaradressen. Aktivera administratörsrollen — det kan bara göras en gång.", "Your verified account matches the authorised owner address. Activate the administrator role — this can only be done once.")}</p>
             <Button variant="lime" size="xl" className="mt-6" onClick={claim}>{t("Gör mig till administratör", "Make me administrator")}</Button>
           </>
         ) : (
