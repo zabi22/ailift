@@ -206,7 +206,7 @@ function Book() {
               </div>
             )}
             {g === "custom" && (
-              {text({ k: "requirements", area: true, label: t("Beskriv era behov och krav", "Describe your needs and requirements"), hint: t("Målgrupp, ämnen, upplägg – allt som hjälper oss förstå.", "Audience, topics, format – anything that helps us understand.") })}
+              text({ k: "requirements", area: true, label: t("Beskriv era behov och krav", "Describe your needs and requirements"), hint: t("Målgrupp, ämnen, upplägg – allt som hjälper oss förstå.", "Audience, topics, format – anything that helps us understand.") })
             )}
 
             <div>
