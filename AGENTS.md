@@ -14,3 +14,4 @@
 - Legacy Cloud tables (bookings, contact_messages, user_roles, admin_bootstrap, services, availability_rules, blocked_dates) are deprecated with all anon/authenticated grants revoked; do not wire them back in.
 - Bilingual copy is inline via `useLang().t(sv, en)`; service content lives in `src/lib/services.ts`, portfolio in `src/lib/projects.ts` (every project carries an explicit status), booking session types in `src/lib/booking.ts`.
 - The /demo sandbox is deterministic sample data in `src/lib/demo.ts`; it must stay labelled as non-live and never call external services.
+- Images are bundled files in src/assets (not CDN pointers) so the site also works when hosted outside Lovable, e.g. Vercel.
