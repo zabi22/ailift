@@ -73,7 +73,7 @@ function Book() {
     document.getElementById("booking-form")?.scrollIntoView({ block: "start" });
   }
 
-  const Choices = ({ k, label, cols = "sm:grid-cols-3" }: { k: keyof BookingForm & keyof typeof OPTIONS; label: string; cols?: string }) => (
+  const choices = ({ k, label, cols = "sm:grid-cols-3" }: { k: keyof BookingForm & keyof typeof OPTIONS; label: string; cols?: string }) => (
     <fieldset>
       <legend className="text-sm font-semibold">{label}</legend>
       <div className={`mt-2 grid gap-2 ${cols}`}>
@@ -84,7 +84,7 @@ function Book() {
       {errors[k] && <p className="mt-2 text-sm text-destructive" role="alert">{errors[k]}</p>}
     </fieldset>
   );
-  const Text = ({ k, label, area, hint }: { k: keyof BookingForm; label: string; area?: boolean; hint?: string }) => (
+  const text = ({ k, label, area, hint }: { k: keyof BookingForm; label: string; area?: boolean; hint?: string }) => (
     <Field id={k} label={label} error={errors[k]}>
       {area ? (
         <Textarea id={k} rows={4} maxLength={3000} value={f[k]} placeholder={hint} onChange={(e) => set(k, e.target.value)} />
@@ -93,7 +93,7 @@ function Book() {
       )}
     </Field>
   );
-  const DateIn = ({ k, label }: { k: "date" | "alt1" | "alt2"; label: string }) => (
+  const datein = ({ k, label }: { k: "date" | "alt1" | "alt2"; label: string }) => (
     <Field id={k} label={label} error={errors[k]}>
       <Input id={k} type="date" min={tomorrow} value={f[k]} onChange={(e) => set(k, e.target.value)} />
     </Field>
@@ -174,9 +174,9 @@ function Book() {
         {step === 1 && (
           <div className="space-y-8">
             <p className="text-sm text-muted-foreground">{t("Frågor för", "Questions for")}: <span className="font-semibold text-foreground">{svcTitle}</span></p>
-            <Choices k="language" label={t("Önskat språk", "Preferred language")} />
-            <Choices k="format" label={t("Format", "Format")} />
-            <Choices k="duration" label={g === "talk" ? t("Föreläsningens längd", "Presentation length") : t("Önskad längd", "Desired duration")} />
+            {choices({ k: "language", label: t("Önskat språk", "Preferred language") })}
+            {choices({ k: "format", label: t("Format", "Format") })}
+            {choices({ k: "duration", label: g === "talk" ? t("Föreläsningens längd", "Presentation length") : t("Önskad längd", "Desired duration") })}
             {usesParticipants(g) && (
               <Field id="participants" label={g === "talk" ? opt("Publikens storlek, ungefär", "Approximate audience size") : opt("Antal deltagare, ungefär", "Approximate number of participants")} error={errors.participants}>
                 <Input id="participants" inputMode="numeric" className="w-40" value={f.participants} onChange={(e) => set("participants", e.target.value)} />
@@ -185,42 +185,42 @@ function Book() {
 
             {g === "corporate" && (
               <div className="space-y-6">
-                <Text k="industry" label={opt("Organisationstyp eller bransch", "Organisation type or industry")} />
-                <Choices k="aiLevel" label={opt("Deltagarnas nuvarande AI-kunskap", "Participants' current AI knowledge")} cols="sm:grid-cols-4" />
-                <Text k="challenges" area label={opt("Vilka uppgifter eller utmaningar vill ni ta upp?", "Which tasks or challenges do you want to address?")} />
-                <Text k="outcomes" area label={opt("Vilket praktiskt resultat vill ni ha?", "What practical outcomes do you want?")} />
+                {text({ k: "industry", label: opt("Organisationstyp eller bransch", "Organisation type or industry") })}
+                {choices({ k: "aiLevel", label: opt("Deltagarnas nuvarande AI-kunskap", "Participants' current AI knowledge"), cols: "sm:grid-cols-4" })}
+                {text({ k: "challenges", area: true, label: opt("Vilka uppgifter eller utmaningar vill ni ta upp?", "Which tasks or challenges do you want to address?") })}
+                {text({ k: "outcomes", area: true, label: opt("Vilket praktiskt resultat vill ni ha?", "What practical outcomes do you want?") })}
               </div>
             )}
             {g === "talk" && (
               <div className="space-y-6">
-                <Text k="occasion" label={t("Evenemang eller tillfälle", "Event or occasion")} hint={t("T.ex. kickoff, konferens, personaldag", "E.g. kickoff, conference, staff day")} />
-                <Text k="audienceType" label={opt("Typ av publik", "Audience type")} />
-                <Text k="topics" area label={opt("Huvudtema eller ämnen", "Main theme or topics")} />
-                <Choices k="qa" label={opt("Önskas en frågestund?", "Would you like a Q&A session?")} />
+                {text({ k: "occasion", label: t("Evenemang eller tillfälle", "Event or occasion"), hint: t("T.ex. kickoff, konferens, personaldag", "E.g. kickoff, conference, staff day") })}
+                {text({ k: "audienceType", label: opt("Typ av publik", "Audience type") })}
+                {text({ k: "topics", area: true, label: opt("Huvudtema eller ämnen", "Main theme or topics") })}
+                {choices({ k: "qa", label: opt("Önskas en frågestund?", "Would you like a Q&A session?") })}
               </div>
             )}
             {g === "coaching" && (
               <div className="space-y-6">
-                <Choices k="experience" label={opt("Din nuvarande erfarenhet av AI", "Your current experience with AI")} />
-                <Text k="topics" area label={opt("Vilka ämnen vill du helst ha hjälp med?", "Which topics do you most want help with?")} />
+                {choices({ k: "experience", label: opt("Din nuvarande erfarenhet av AI", "Your current experience with AI") })}
+                {text({ k: "topics", area: true, label: opt("Vilka ämnen vill du helst ha hjälp med?", "Which topics do you most want help with?") })}
               </div>
             )}
             {g === "custom" && (
-              <Text k="requirements" area label={t("Beskriv era behov och krav", "Describe your needs and requirements")} hint={t("Målgrupp, ämnen, upplägg – allt som hjälper oss förstå.", "Audience, topics, format – anything that helps us understand.")} />
+              {text({ k: "requirements", area: true, label: t("Beskriv era behov och krav", "Describe your needs and requirements"), hint: t("Målgrupp, ämnen, upplägg – allt som hjälper oss förstå.", "Audience, topics, format – anything that helps us understand.") })}
             )}
 
             <div>
               <p className="text-sm font-semibold">{t("Datum", "Dates")}</p>
               <p className="mt-1 text-sm text-muted-foreground">{t("Datumen är önskemål och garanteras inte.", "Dates are preferences and not guaranteed.")}</p>
               <div className="mt-3 grid gap-4 sm:grid-cols-3">
-                <DateIn k="date" label={t("Önskat datum", "Preferred date")} />
-                <DateIn k="alt1" label={opt("Alternativ 1", "Alternative 1")} />
-                <DateIn k="alt2" label={opt("Alternativ 2", "Alternative 2")} />
+                {datein({ k: "date", label: t("Önskat datum", "Preferred date") })}
+                {datein({ k: "alt1", label: opt("Alternativ 1", "Alternative 1") })}
+                {datein({ k: "alt2", label: opt("Alternativ 2", "Alternative 2") })}
               </div>
             </div>
-            <Choices k="flexible" label={t("Är datumen flexibla?", "Are the dates flexible?")} cols="sm:grid-cols-2" />
-            <Text k="goals" area label={g === "coaching" ? t("Dina viktigaste lärandemål", "Your main learning goals") : t("Huvudsakliga mål", "Main goals")} hint={t("Vad vill ni uppnå?", "What do you want to achieve?")} />
-            <Text k="notes" area label={opt("Övrig information", "Additional information")} />
+            {choices({ k: "flexible", label: t("Är datumen flexibla?", "Are the dates flexible?"), cols: "sm:grid-cols-2" })}
+            {text({ k: "goals", area: true, label: g === "coaching" ? t("Dina viktigaste lärandemål", "Your main learning goals") : t("Huvudsakliga mål", "Main goals"), hint: t("Vad vill ni uppnå?", "What do you want to achieve?") })}
+            {text({ k: "notes", area: true, label: opt("Övrig information", "Additional information") })}
           </div>
         )}
 
