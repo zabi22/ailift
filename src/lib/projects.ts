@@ -1,5 +1,5 @@
-import desktop from "@/assets/juristbyra-desktop.jpg.asset.json";
-import mobile from "@/assets/juristbyra-mobile.jpg.asset.json";
+import desktopSrc from "@/assets/juristbyra-desktop.jpg";
+import mobileSrc from "@/assets/juristbyra-mobile.jpg";
 
 type L = { sv: string; en: string };
 type LL = { sv: string[]; en: string[] };
@@ -66,8 +66,8 @@ export const PROJECTS: Project[] = [
     planned: { sv: [], en: [] },
     tech: [],
     screenshots: [
-      { src: desktop.url, kind: "desktop", alt: { sv: "Startsidan för Juristbyrå Europa på dator", en: "Juristbyrå Europa home page on desktop" } },
-      { src: mobile.url, kind: "mobile", alt: { sv: "Startsidan för Juristbyrå Europa i mobilen", en: "Juristbyrå Europa home page on mobile" } },
+      { src: desktopSrc, kind: "desktop", alt: { sv: "Startsidan för Juristbyrå Europa på dator", en: "Juristbyrå Europa home page on desktop" } },
+      { src: mobileSrc, kind: "mobile", alt: { sv: "Startsidan för Juristbyrå Europa i mobilen", en: "Juristbyrå Europa home page on mobile" } },
     ],
     link: { href: "https://www.juristbyraeuropa.se/", label: { sv: "Besök webbplatsen", en: "Visit live website" } },
     outcomes: { sv: "Inga mätresultat publiceras här.", en: "No measured results are published here." },
