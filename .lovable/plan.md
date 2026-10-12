@@ -1,33 +1,37 @@
-# AiLift — full build plan
+# AiLift — launch-ready build plan
 
-Build the complete AiLift site from the brief: bilingual (Swedish/English) public website, real booking requests saved to Lovable Cloud, availability management, and a private admin dashboard. No email provider (no Resend/SMTP).
+Bilingual (Swedish default, English toggle) service website with real booking requests saved to Lovable Cloud and an owner-only admin dashboard. No Resend, email keys, custom domain, payments or external calendar.
 
 ## Design
-- Scandinavian editorial look: warm white backgrounds, deep navy text, one lime accent.
-- Editorial serif headlines + clean sans body (not Inter/Poppins). Large type, generous whitespace.
-- No fake testimonials, logos, stats or certifications.
+- Scandinavian editorial: warm white, deep navy text, one restrained lime accent.
+- Editorial serif headlines + clean sans body; large type, whitespace, subtle animation.
+- Generated photography of workshops/people collaborating (no robots, no heavy gradients).
+- No invented testimonials, logos, clients, stats, prices or durations — services show "Begär offert / Request a quote" until the owner sets pricing.
 
-## Pages (each its own URL, SV/EN toggle remembered)
-- Home: hero "Make AI useful in real life", audience selection, services overview, outcomes, 3-step process, founder intro (Zabihullah Ahmadzai), booking CTA, footer.
-- Services catalogue + a detail page for each of the 6 services.
-- Booking: 6-step request form (service, type, preferences, date from real availability, contact, review). Ends with a "request received — pending confirmation" page with a reference number. Never shown as confirmed until the owner confirms.
-- Contact form (saved to database).
-- AI Learning Hub (resource articles), FAQ, About, Privacy.
-- Admin (login required, owner only): overview, booking list with status changes (pending / confirmed / declined / cancelled / completed) and notes, availability calendar (weekly hours + blocked dates), contact messages, service and site text editing.
+## Public pages (each its own URL, SV/EN everywhere incl. form errors)
+- Home: hero "Gör AI användbart i verkligheten", audiences, services, outcomes, process, founder intro (Zabihullah Ahmadzai), CTA.
+- Services catalogue + detail page per service (6 services).
+- Booking: 3-step request (service & format → preferences/goals/preferred dates from availability → contact incl. optional phone, review). Success page shows reference number and "Pending — the owner will confirm". Never shown as confirmed before the owner confirms.
+- About, Contact (saved form), FAQ, Privacy.
 
-## Backend (Lovable Cloud)
-- Tables: services, bookings, availability rules, blocked dates, contact messages, resources, site content, user roles.
-- Public visitors can only create bookings/messages; only admin can read/manage them.
-- Server-side check prevents double-booking a slot.
-- Owner account: you sign up once, then I grant it the admin role.
+## Admin (login + admin role, checked on the server)
+- Overview: counts of new/pending bookings and unread messages.
+- Bookings: filter by service, date, status; change status (pending, confirmed, declined, cancelled, completed); record agreed date, duration, price; private notes.
+- Contact messages: read/mark handled.
+- Simple availability: weekly bookable days/hours and blocked dates.
+- Service pricing/duration configuration.
+
+## Security
+- Roles in a separate table; nobody can self-assign admin.
+- One-time owner setup: you sign up, then I assign the admin role with a single backend step (bootstrap disabled afterwards).
+- Public can only create requests via validated server functions; only admin reads/updates.
 
 ## Build order
-1. Design system, navigation, language switch.
-2. Public pages and service pages.
-3. Enable Cloud, schema + security rules, seed services.
-4. Booking flow with availability checks.
-5. Admin dashboard.
-6. Contact, Learning Hub, FAQ, Privacy, SEO metadata, accessibility polish, end-to-end test.
+1. Design system, nav, language toggle, public pages.
+2. Enable Cloud, schema + security rules, seed services.
+3. Booking flow + contact form.
+4. Admin dashboard + availability.
+5. SEO metadata, accessibility, full workflow test (submit → appears in admin → status change → non-admin blocked).
 
 ## Technical notes
-- TanStack Start routes per page, server functions for booking validation, roles in a separate table with a security-definer check, RLS on all tables.
+- TanStack Start routes per page, createServerFn for submissions/admin actions with requireSupabaseAuth + has_role check, RLS on all tables, booking status defaults to pending.
