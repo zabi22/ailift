@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useLang } from "@/lib/i18n";
 import { PageHeader } from "@/components/site/PageHeader";
 import { Button } from "@/components/ui/button";
-import talkImg from "@/assets/talk.jpg";
+import portraitImg from "@/assets/zabi-portrait.jpg.asset.json";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
