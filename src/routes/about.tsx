@@ -32,7 +32,7 @@ function About() {
         intro={t("AiLift är ett ungt företag med ett tydligt fokus: att hjälpa människor och organisationer att förstå AI och använda det på riktigt.", "AiLift is a young company with a clear focus: helping people and organisations understand AI and use it for real.")}
       />
       <section className="container-page grid gap-12 md:grid-cols-2">
-        <img src={talkImg} alt={t("Föreläsning om AI", "A talk about AI")} loading="lazy" width={1408} height={1008} className="aspect-[4/3] w-full rounded-2xl object-cover" />
+        <img src={portraitImg.url} alt={t("Zabihullah Ahmadzai, grundare av AiLift", "Zabihullah Ahmadzai, founder of AiLift")} loading="lazy" width={403} height={504} className="aspect-[4/5] w-full rounded-2xl object-cover" />
         <div className="space-y-6 text-lg text-muted-foreground">
           <h2 className="text-4xl text-foreground">Zabihullah Ahmadzai</h2>
           <p>{t("Jag startade AiLift för att jag ser hur stort avståndet är mellan vad AI kan göra och hur de flesta faktiskt använder det. Många är nyfikna men osäkra på var de ska börja.", "I started AiLift because I see how big the gap is between what AI can do and how most people actually use it. Many are curious but unsure where to start.")}</p>
