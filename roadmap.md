@@ -4,4 +4,5 @@
 - [x] Remove stored bookings/messages; delete test data; lock tables
 - [x] Booking + contact via prefilled email draft (no storage)
 - [x] Update privacy notice; test
-- [ ] Owner contact email (blocked: needs the address from the owner)
+- [x] Copy-message fallback + PUBLIC_CONTACT_EMAIL setting; local fonts; launch QA
+- [ ] Public contact email (owner fills PUBLIC_CONTACT_EMAIL when ready)
