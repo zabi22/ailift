@@ -1,9 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { getService } from "@/lib/services";
-import { serviceConfigQuery } from "@/lib/service-config";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/services/$slug")({
@@ -29,10 +27,6 @@ function ServiceDetail() {
   const { slug } = Route.useLoaderData();
   const s = getService(slug)!;
   const { lang, t } = useLang();
-  const { data: configs } = useQuery(serviceConfigQuery);
-  const cfg = configs?.find((c) => c.slug === slug);
-  const price = lang === "sv" ? cfg?.price_sv : cfg?.price_en;
-  const duration = lang === "sv" ? cfg?.duration_sv : cfg?.duration_en;
 
   return (
     <>
@@ -52,11 +46,11 @@ function ServiceDetail() {
             <dl className="space-y-5">
               <div>
                 <dt className="eyebrow">{t("Pris", "Price")}</dt>
-                <dd className="mt-1 font-display text-2xl">{price || t("Begär offert", "Request a quote")}</dd>
+                <dd className="mt-1 font-display text-2xl">{t("Begär offert", "Request a quote")}</dd>
               </div>
               <div>
                 <dt className="eyebrow">{t("Längd", "Duration")}</dt>
-                <dd className="mt-1">{duration || t("Anpassas efter behov", "Adapted to your needs")}</dd>
+                <dd className="mt-1">{t("Anpassas efter behov", "Adapted to your needs")}</dd>
               </div>
               <div>
                 <dt className="eyebrow">{t("Format", "Format")}</dt>

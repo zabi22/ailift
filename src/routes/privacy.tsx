@@ -6,9 +6,9 @@ export const Route = createFileRoute("/privacy")({
   head: () => ({
     meta: [
       { title: "Integritetspolicy — AiLift" },
-      { name: "description", content: "Hur AiLift samlar in, använder och skyddar personuppgifter." },
+      { name: "description", content: "AiLifts webbplats sparar inga personuppgifter. Så hanteras information när du kontaktar oss via e-post." },
       { property: "og:title", content: "Integritetspolicy — AiLift" },
-      { property: "og:description", content: "Hur AiLift hanterar personuppgifter." },
+      { property: "og:description", content: "Webbplatsen sparar inga personuppgifter." },
     ],
   }),
   component: Privacy,
@@ -17,11 +17,11 @@ export const Route = createFileRoute("/privacy")({
 function Privacy() {
   const { t } = useLang();
   const sections = [
-    [t("Vilka uppgifter vi samlar in", "What data we collect"), t("När du skickar en bokningsförfrågan eller ett meddelande sparar vi de uppgifter du anger: namn, e-post, eventuellt telefonnummer och organisation, samt information om ditt önskemål.", "When you send a booking request or message we store the details you provide: name, email, optional phone number and organisation, and information about your request.")],
-    [t("Varför", "Why"), t("Uppgifterna används enbart för att hantera din förfrågan, kontakta dig och genomföra en eventuell bokning. Vi säljer eller delar aldrig uppgifterna med tredje part i marknadsföringssyfte.", "The data is only used to handle your request, contact you and deliver any booking. We never sell or share your data with third parties for marketing.")],
-    [t("Lagring och säkerhet", "Storage and security"), t("Uppgifterna lagras i en skyddad databas som endast administratören har åtkomst till.", "Data is stored in a protected database that only the administrator can access.")],
-    [t("Hur länge", "How long"), t("Vi sparar uppgifterna så länge det behövs för att hantera förfrågan och eventuell uppföljning, därefter raderas de.", "We keep the data as long as needed to handle the request and any follow-up, after which it is deleted.")],
-    [t("Dina rättigheter", "Your rights"), t("Du har rätt att begära utdrag, rättelse eller radering av dina uppgifter enligt GDPR. Kontakta oss via kontaktformuläret.", "You have the right to request access, correction or deletion of your data under GDPR. Contact us via the contact form.")],
+    [t("Webbplatsen sparar inga uppgifter", "The website stores no data"), t("Formulären för bokning och kontakt skickar ingenting och sparar ingenting. De skapar bara ett e-postutkast i ditt eget e-postprogram. Det finns inga användarkonton, ingen databas för kunduppgifter, inga analysverktyg och inga spårningscookies.", "The booking and contact forms send nothing and store nothing. They only create an email draft in your own email app. There are no user accounts, no customer database, no analytics tools and no tracking cookies.")],
+    [t("Det enda som sparas i din webbläsare", "The only thing stored in your browser"), t("Ditt språkval (svenska eller engelska) sparas lokalt i din webbläsare så att sidan minns det. Det innehåller inga personuppgifter.", "Your language choice (Swedish or English) is saved locally in your browser so the site remembers it. It contains no personal data.")],
+    [t("När du skickar e-post", "When you send an email"), t("Om du väljer att skicka e-postutkastet hanteras meddelandet av din egen e-posttjänst och av AiLifts e-postleverantör, enligt deras villkor. AiLift använder uppgifterna endast för att svara dig och hantera din förfrågan, och raderar dem när de inte längre behövs.", "If you choose to send the email draft, the message is handled by your own email provider and AiLift's email provider, under their terms. AiLift only uses the information to reply to you and handle your request, and deletes it when no longer needed.")],
+    [t("Webbhotell", "Hosting"), t("Som alla webbplatser behandlar vår hostingleverantör tekniska uppgifter som IP-adress och webbläsartyp för att kunna leverera sidorna och skydda mot missbruk. Typsnitt hämtas från Google Fonts, vilket innebär att din IP-adress skickas till Google när sidan laddas.", "Like any website, our hosting provider processes technical data such as IP address and browser type to deliver pages and protect against abuse. Fonts are loaded from Google Fonts, which means your IP address is sent to Google when the page loads.")],
+    [t("Dina rättigheter", "Your rights"), t("Enligt GDPR har du rätt att begära utdrag, rättelse eller radering av uppgifter du skickat till oss via e-post. Hör av dig till samma adress.", "Under GDPR you have the right to request access, correction or deletion of information you sent us by email. Contact the same address.")],
   ];
   return (
     <>

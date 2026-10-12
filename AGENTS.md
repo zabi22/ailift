@@ -10,6 +10,6 @@
 <!-- LOVABLE:END -->
 
 ## AiLift architecture
-- Public booking submissions go through the `submit_booking` security-definer SQL function (validation, availability, double-booking lock) — keeps anon users from writing booking rows directly.
-- Admin access = `admin` row in `user_roles`, checked via `has_role` in RLS; first admin is self-claimed once via `claim_first_admin`, which refuses once any admin exists.
-- Bilingual copy is inline via `useLang().t(sv, en)`; service content lives in `src/lib/services.ts`, owner-editable price/duration in the `services` table.
+- Booking and contact forms only build a `mailto:` draft via `src/lib/contact.ts` (owner address in `CONTACT_EMAIL`) — the site must not persist visitor data anywhere.
+- Legacy Cloud tables (bookings, contact_messages, user_roles, admin_bootstrap, services, availability_rules, blocked_dates) are deprecated with all anon/authenticated grants revoked; do not wire them back in.
+- Bilingual copy is inline via `useLang().t(sv, en)`; service content lives in `src/lib/services.ts`.

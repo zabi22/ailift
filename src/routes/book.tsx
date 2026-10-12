@@ -1,20 +1,15 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
+import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { z } from "zod";
-import { ArrowLeft, ArrowRight, Check } from "lucide-react";
-import { sv as svLocale, enGB } from "date-fns/locale";
+import { ArrowLeft, ArrowRight, Mail } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { SERVICES } from "@/lib/services";
-import { availabilityQuery, isDateAvailable, toISODate } from "@/lib/availability";
-import { supabase } from "@/integrations/supabase/client";
+import { CONTACT_EMAIL, buildMailto } from "@/lib/contact";
 import { PageHeader } from "@/components/site/PageHeader";
 import { Field } from "@/components/site/Field";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Calendar } from "@/components/ui/calendar";
-import { Checkbox } from "@/components/ui/checkbox";
 
 export const Route = createFileRoute("/book")({
   validateSearch: z.object({ service: z.string().optional() }),
@@ -29,49 +24,40 @@ export const Route = createFileRoute("/book")({
   component: Book,
 });
 
-type Errs = Partial<Record<"service" | "audience" | "format" | "date" | "time" | "participants" | "goals" | "name" | "email" | "phone" | "consent", string>>;
+type Errs = Partial<Record<"service" | "audience" | "format" | "date" | "time" | "participants" | "goals" | "name" | "email" | "phone", string>>;
 
 type Form = {
   service: string;
   audience: string;
   format: string;
   participants: string;
-  date?: Date;
+  date: string;
   time: string;
   goals: string;
   name: string;
   email: string;
   phone: string;
   organization: string;
-  consent: boolean;
 };
 
-const ERR: Record<string, [string, string]> = {
-  date_unavailable: ["Datumet är inte längre tillgängligt. Välj ett annat datum.", "That date is no longer available. Please choose another."],
-  consent_required: ["Du behöver godkänna integritetspolicyn.", "You need to accept the privacy policy."],
-};
 
 function Book() {
   const { lang, t } = useLang();
   const search = Route.useSearch();
-  const navigate = useNavigate();
-  const { data: avail } = useQuery(availabilityQuery);
   const [step, setStep] = useState(0);
   const [errors, setErrors] = useState<Errs>({});
-  const [busy, setBusy] = useState(false);
-  const [serverError, setServerError] = useState("");
   const [f, setF] = useState<Form>({
     service: SERVICES.some((s) => s.slug === search.service) ? (search.service as string) : "",
     audience: "",
     format: "",
     participants: "",
+    date: "",
     time: "",
     goals: "",
     name: "",
     email: "",
     phone: "",
     organization: "",
-    consent: false,
   });
   const set = <K extends keyof Form>(k: K, v: Form[K]) => setF((p) => ({ ...p, [k]: v }));
 
@@ -109,40 +95,28 @@ function Book() {
       if (f.name.trim().length < 2) e.name = t("Ange ditt namn", "Enter your name");
       if (!z.string().email().safeParse(f.email.trim()).success) e.email = t("Ange en giltig e-postadress", "Enter a valid email address");
       if (f.phone && !/^[+\d\s()-]{6,40}$/.test(f.phone)) e.phone = t("Ange ett giltigt telefonnummer", "Enter a valid phone number");
-      if (!f.consent) e.consent = t("Du behöver godkänna integritetspolicyn", "You need to accept the privacy policy");
     }
     setErrors(e);
     return Object.keys(e).length === 0;
   }
 
-  async function submit() {
-    if (!validate(2)) return;
-    setBusy(true);
-    setServerError("");
-    const { data, error } = await supabase.rpc("submit_booking", {
-      _service: f.service,
-      _audience: f.audience,
-      _format: f.format,
-      _participants: f.participants ? +f.participants : (null as unknown as number),
-      _date: toISODate(f.date!),
-      _time: f.time,
-      _alt_date: null as unknown as string,
-      _goals: f.goals,
-      _name: f.name,
-      _email: f.email,
-      _phone: f.phone,
-      _organization: f.organization,
-      _language: lang,
-      _consent: f.consent,
-    });
-    setBusy(false);
-    if (error) {
-      const key = Object.keys(ERR).find((k) => error.message.includes(k));
-      setServerError(key ? ERR[key]![lang === "sv" ? 0 : 1] : t("Något gick fel. Kontrollera uppgifterna och försök igen.", "Something went wrong. Please check your details and try again."));
-      if (key === "date_unavailable") setStep(1);
-      return;
-    }
-    navigate({ to: "/booking-received", search: { ref: data as string } });
+  const svcTitle = (l: "sv" | "en") => SERVICES.find((x) => x.slug === f.service)?.title[l] ?? "";
+  function mailtoHref() {
+    const label = (list: [string, string][], v: string) => list.find((x) => x[0] === v)?.[1] ?? v;
+    return buildMailto(CONTACT_EMAIL, `${t("Bokningsförfrågan", "Booking request")}: ${svcTitle(lang)}`, [
+      `${t("Tjänst", "Service")}: ${svcTitle(lang)}`,
+      `${t("Gäller", "For")}: ${label(audiences, f.audience)}`,
+      `${t("Format", "Format")}: ${label(formats, f.format)}`,
+      `${t("Önskat datum", "Preferred date")}: ${f.date} (${label(times, f.time)})`,
+      f.participants && `${t("Deltagare", "Participants")}: ${f.participants}`,
+      "",
+      `${t("Mål och ämnen", "Goals and topics")}:`,
+      f.goals.trim(),
+      "",
+      f.name.trim(),
+      f.organization.trim(),
+      f.phone.trim() && `${t("Telefon", "Phone")}: ${f.phone.trim()}`,
+    ]);
   }
 
   const stepLabels = [t("Tjänst", "Service"), t("Önskemål", "Preferences"), t("Kontakt", "Contact")];
@@ -164,7 +138,7 @@ function Book() {
       <PageHeader
         eyebrow={t("Bokningsförfrågan", "Booking request")}
         title={t("Berätta vad ni behöver.", "Tell us what you need.")}
-        intro={t("Det tar ett par minuter. Förfrågan är kostnadsfri och blir en bokning först när den bekräftats.", "It takes a couple of minutes. The request is free and only becomes a booking once confirmed.")}
+        intro={t("Fyll i dina önskemål så skapas ett färdigt e-postmeddelande som du själv skickar. Inget sparas på webbplatsen.", "Fill in your preferences and we create a ready-made email that you send yourself. Nothing is stored on the website.")}
       />
       <section className="container-page max-w-3xl">
         <ol className="mb-10 flex gap-2" aria-label={t("Steg", "Steps")}>
@@ -213,16 +187,8 @@ function Book() {
             <div className="grid gap-8 md:grid-cols-2">
               <div>
                 <p className="font-display text-2xl">{t("Önskat datum", "Preferred date")}</p>
-                <p className="mt-1 text-sm text-muted-foreground">{t("Endast lediga datum kan väljas.", "Only available dates can be selected.")}</p>
-                <Calendar
-                  mode="single"
-                  selected={f.date}
-                  onSelect={(d) => set("date", d)}
-                  locale={lang === "sv" ? svLocale : enGB}
-                  weekStartsOn={1}
-                  disabled={(d) => !avail || !isDateAvailable(d, avail)}
-                  className="mt-3 rounded-xl border border-border bg-card"
-                />
+                <p className="mt-1 text-sm text-muted-foreground">{t("Datumet är ett önskemål och bekräftas i efterhand.", "The date is a preference and will be confirmed afterwards.")}</p>
+                <Input id="date" type="date" className="mt-3 w-56" value={f.date} min={new Date(Date.now() + 864e5).toISOString().slice(0, 10)} onChange={(e) => set("date", e.target.value)} aria-label={t("Önskat datum", "Preferred date")} />
                 {errors.date && <p className="mt-2 text-sm text-destructive" role="alert">{errors.date}</p>}
               </div>
               <div className="space-y-6">
@@ -256,23 +222,16 @@ function Book() {
               <p className="eyebrow">{t("Sammanfattning", "Summary")}</p>
               <dl className="mt-4 grid gap-3 text-sm sm:grid-cols-2">
                 <div><dt className="text-muted-foreground">{t("Tjänst", "Service")}</dt><dd className="font-semibold">{svc?.title[lang]}</dd></div>
-                <div><dt className="text-muted-foreground">{t("Datum", "Date")}</dt><dd className="font-semibold">{f.date?.toLocaleDateString(lang === "sv" ? "sv-SE" : "en-GB", { weekday: "long", day: "numeric", month: "long" })} · {times.find((x) => x[0] === f.time)?.[1]}</dd></div>
+                <div><dt className="text-muted-foreground">{t("Datum", "Date")}</dt><dd className="font-semibold">{f.date} · {times.find((x) => x[0] === f.time)?.[1]}</dd></div>
                 <div><dt className="text-muted-foreground">{t("Format", "Format")}</dt><dd className="font-semibold">{formats.find((x) => x[0] === f.format)?.[1]}</dd></div>
                 <div><dt className="text-muted-foreground">{t("Deltagare", "Participants")}</dt><dd className="font-semibold">{f.participants || "—"}</dd></div>
               </dl>
             </div>
-            <div className="flex items-start gap-3">
-              <Checkbox id="consent" checked={f.consent} onCheckedChange={(c) => set("consent", c === true)} className="mt-0.5" />
-              <label htmlFor="consent" className="text-sm text-muted-foreground">
-                {t("Jag godkänner att AiLift sparar mina uppgifter för att hantera förfrågan enligt ", "I agree that AiLift stores my details to handle this request according to the ")}
-                <a href="/privacy" target="_blank" className="underline">{t("integritetspolicyn", "privacy policy")}</a>.
-              </label>
-            </div>
-            {errors.consent && <p className="text-sm text-destructive" role="alert">{errors.consent}</p>}
+            <p className="text-sm text-muted-foreground">{t("När du klickar nedan öppnas ett färdigt e-postutkast i ditt e-postprogram. Du kan granska det och skickar det själv — webbplatsen sparar inga uppgifter.", "Clicking below opens a prefilled email draft in your email app. You can review it and send it yourself — the website stores nothing.")}</p>
           </div>
         )}
 
-        {serverError && <p className="mt-6 rounded-lg bg-destructive/10 p-4 text-sm text-destructive" role="alert">{serverError}</p>}
+        {step === 2 && !CONTACT_EMAIL && <p className="mt-6 rounded-lg bg-muted p-4 text-sm" role="status">{t("Kontaktadressen är inte konfigurerad ännu, så förfrågan kan inte skickas just nu.", "The contact address isn't configured yet, so requests can't be sent right now.")}</p>}
 
         <div className="mt-10 flex justify-between gap-4 border-t border-border pt-6">
           {step > 0 ? (
@@ -281,7 +240,13 @@ function Book() {
           {step < 2 ? (
             <Button variant="pill" size="xl" onClick={() => validate(step) && setStep(step + 1)}>{t("Fortsätt", "Continue")} <ArrowRight /></Button>
           ) : (
-            <Button variant="lime" size="xl" onClick={submit} disabled={busy}>{busy ? t("Skickar…", "Sending…") : <>{t("Skicka förfrågan", "Send request")} <Check /></>}</Button>
+            CONTACT_EMAIL ? (
+              <Button asChild variant="lime" size="xl">
+                <a href={mailtoHref()} onClick={(e) => { if (!validate(2)) e.preventDefault(); }}>{t("Öppna e-postutkast", "Open email draft")} <Mail /></a>
+              </Button>
+            ) : (
+              <Button variant="lime" size="xl" disabled>{t("Öppna e-postutkast", "Open email draft")} <Mail /></Button>
+            )
           )}
         </div>
       </section>

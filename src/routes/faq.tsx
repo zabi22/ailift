@@ -20,11 +20,11 @@ function Faq() {
   const items = [
     [t("Behöver deltagarna några förkunskaper?", "Do participants need any prior knowledge?"), t("Nej. Alla upplägg anpassas efter gruppens nivå — från helt nybörjare till de som redan använder AI dagligen.", "No. Every format is adapted to the group's level — from complete beginners to daily AI users.")],
     [t("Vad kostar det?", "What does it cost?"), t("Priset beror på upplägg, längd och antal deltagare. Skicka en förfrågan så får du en offert efter en kort avstämning.", "Price depends on format, length and number of participants. Send a request and you'll receive a quote after a short conversation.")],
-    [t("Är min bokning bekräftad när jag skickat förfrågan?", "Is my booking confirmed when I send the request?"), t("Nej. En förfrågan är inte en bekräftad bokning. Zabihullah går igenom den, kontaktar dig och bekräftar när detaljerna är överenskomna.", "No. A request is not a confirmed booking. Zabihullah reviews it, contacts you and confirms once the details are agreed.")],
+    [t("Är min bokning bekräftad när jag skickat förfrågan?", "Is my booking confirmed when I send the request?"), t("Nej. Formuläret öppnar ett e-postutkast som du själv skickar. När mejlet kommit fram svarar Zabihullah och bokningen bekräftas först när detaljerna är överenskomna.", "No. The form opens an email draft that you send yourself. Once it arrives, Zabihullah replies, and the booking is only confirmed once details are agreed.")],
     [t("Håller ni workshops online?", "Do you run workshops online?"), t("Ja, de flesta tjänster kan genomföras både på plats och online.", "Yes, most services can be delivered both on site and online.")],
     [t("På vilka språk?", "In which languages?"), t("Svenska och engelska.", "Swedish and English.")],
     [t("Vilka AI-verktyg använder ni?", "Which AI tools do you use?"), t("Vi utgår från de verktyg ni har tillgång till och som passar er verksamhet, till exempel vanliga AI-assistenter.", "We start from the tools you have access to and that suit your organisation, such as common AI assistants.")],
-    [t("Hur hanteras mina uppgifter?", "How is my data handled?"), t("Uppgifterna används endast för att hantera din förfrågan. Läs mer i vår integritetspolicy.", "Your data is only used to handle your request. Read more in our privacy policy.")],
+    [t("Hur hanteras mina uppgifter?", "How is my data handled?"), t("Webbplatsen sparar inga personuppgifter. Det du skickar via e-post används bara för att svara dig. Läs mer i integritetspolicyn.", "The website stores no personal data. What you send by email is only used to reply to you. Read more in the privacy policy.")],
   ];
   return (
     <>

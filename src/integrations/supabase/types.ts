@@ -243,9 +243,6 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      admin_exists: { Args: never; Returns: boolean }
-      can_claim_admin: { Args: never; Returns: boolean }
-      claim_first_admin: { Args: never; Returns: boolean }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -253,26 +250,6 @@ export type Database = {
         }
         Returns: boolean
       }
-      submit_booking: {
-        Args: {
-          _alt_date: string
-          _audience: string
-          _consent: boolean
-          _date: string
-          _email: string
-          _format: string
-          _goals: string
-          _language: string
-          _name: string
-          _organization: string
-          _participants: number
-          _phone: string
-          _service: string
-          _time: string
-        }
-        Returns: string
-      }
-      taken_dates: { Args: never; Returns: string[] }
     }
     Enums: {
       app_role: "admin"
