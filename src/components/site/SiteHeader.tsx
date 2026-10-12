@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { Button } from "@/components/ui/button";
+import logo from "@/assets/ailift-logo.png";
 
 export function SiteHeader() {
   const { lang, setLang, t } = useLang();
