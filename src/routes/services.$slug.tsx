@@ -48,12 +48,12 @@ function ServiceDetail() {
         </Link>
       </section>
       <section className="container-page grid gap-12 pb-16 pt-8 md:grid-cols-12">
-        <div className="md:col-span-7">
+        <div className="min-w-0 md:col-span-7">
           <p className="eyebrow">{s.seo[lang]}</p>
-          <h1 className="mt-4 text-5xl md:text-7xl">{s.title[lang]}</h1>
+          <h1 lang={lang} className="mt-4 hyphens-auto break-words text-4xl sm:text-5xl md:text-7xl">{s.title[lang]}</h1>
           <p className="mt-8 text-xl text-muted-foreground">{s.intro[lang]}</p>
         </div>
-        <aside className="md:col-span-5">
+        <aside className="min-w-0 md:col-span-5">
           <div className="sticky top-24 rounded-2xl border border-border bg-card p-8">
             <p className="eyebrow">{t("Pris", "Price")}</p>
             <p className="mt-1 font-display text-2xl">{t("Offert efter behov", "Tailored quote")}</p>
