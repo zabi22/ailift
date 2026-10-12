@@ -1,177 +1,134 @@
-import heroWorkshop from "@/assets/hero-workshop.jpg";
-import talk from "@/assets/talk.jpg";
-import coaching from "@/assets/coaching.jpg";
-
 type L = { sv: string; en: string };
+type LL = { sv: string[]; en: string[] };
 
 export type ServiceContent = {
   slug: string;
-  image: string;
   title: L;
   short: L;
   intro: L;
+  seo: L;
   forWho: L;
-  outcomes: { sv: string[]; en: string[] };
-  includes: { sv: string[]; en: string[] };
-  formats: L;
+  problems: LL;
+  deliverables: LL;
+  examples: LL;
 };
 
 export const SERVICES: ServiceContent[] = [
   {
-    slug: "company-workshops",
-    image: heroWorkshop,
-    title: { sv: "AI-workshops för företag", en: "AI workshops for companies" },
+    slug: "ai-automation",
+    title: { sv: "AI & automation", en: "AI & Automation" },
     short: {
-      sv: "Praktiska workshops där ert team lär sig använda AI i sitt eget arbete.",
-      en: "Hands-on workshops where your team learns to use AI in its own daily work.",
+      sv: "AI-agenter och automatiserade flöden som tar hand om repetitivt arbete – med människan kvar vid viktiga beslut.",
+      en: "AI agents and automated workflows that handle repetitive work – with a person still in charge of important decisions.",
     },
     intro: {
-      sv: "En interaktiv workshop anpassad efter er verksamhet. Vi utgår från era verkliga arbetsuppgifter och övar på dem tillsammans, så att deltagarna går därifrån med metoder de kan använda direkt.",
-      en: "An interactive workshop tailored to your organisation. We start from your real tasks and practise on them together, so participants leave with methods they can use straight away.",
+      sv: "Vi kartlägger var tiden går åt och bygger automatiseringar som passar era system: från enkla flöden mellan verktyg till AI-agenter som planerar uppgifter, använder tillåtna verktyg och ber om godkännande innan något känsligt görs.",
+      en: "We map where time is lost and build automations that fit your systems: from simple flows between tools to AI agents that plan tasks, use permitted tools and ask for approval before doing anything sensitive.",
     },
+    seo: { sv: "AI-automation och AI-agenter för småföretag", en: "AI automation and AI agents for small businesses" },
     forWho: {
-      sv: "Ledningsgrupper, team och avdelningar som vill komma igång med AI på ett tryggt och strukturerat sätt.",
-      en: "Leadership groups, teams and departments that want to get started with AI in a safe, structured way.",
+      sv: "Små och medelstora företag med återkommande manuellt arbete – administration, e-post, rapporter, dataöverföring.",
+      en: "Small and medium-sized businesses with recurring manual work – admin, email, reports, moving data between systems.",
     },
-    outcomes: {
-      sv: ["Förståelse för vad generativ AI kan och inte kan", "Konkreta arbetsflöden för era vanligaste uppgifter", "Riktlinjer för ansvarsfull och säker användning", "Bättre promptar och kvalitetsgranskning av svar"],
-      en: ["Understanding of what generative AI can and cannot do", "Concrete workflows for your most common tasks", "Guidelines for responsible and secure use", "Better prompts and quality checking of answers"],
+    problems: {
+      sv: ["Samma uppgifter görs för hand varje vecka", "Information kopieras mellan system", "Förfrågningar blir liggande", "Svårt att veta var AI faktiskt gör nytta"],
+      en: ["The same tasks are done by hand every week", "Information is copied between systems", "Requests sit waiting", "Hard to know where AI actually helps"],
     },
-    includes: {
-      sv: ["Förberedande samtal om era mål", "Workshop med praktiska övningar", "Övningsmaterial och sammanfattning efteråt"],
-      en: ["Preparatory call about your goals", "Workshop with practical exercises", "Exercise material and a summary afterwards"],
+    deliverables: {
+      sv: ["Kartläggning av processer och prioritering", "Automatiserade flöden eller AI-agent", "Godkännandesteg och logg för känsliga åtgärder", "Dokumentation och överlämning"],
+      en: ["Process mapping and prioritisation", "Automated workflows or an AI agent", "Approval steps and logs for sensitive actions", "Documentation and handover"],
     },
-    formats: { sv: "På plats eller online", en: "On site or online" },
+    examples: {
+      sv: ["Sortera och sammanfatta inkommande e-post", "Skapa utkast till offerter från en förfrågan", "Veckorapporter som sammanställs automatiskt"],
+      en: ["Sort and summarise incoming email", "Draft quotes from an incoming request", "Weekly reports compiled automatically"],
+    },
   },
   {
-    slug: "talks",
-    image: talk,
-    title: { sv: "Föreläsningar och presentationer", en: "Talks and presentations" },
+    slug: "ai-consulting",
+    title: { sv: "AI-rådgivning & workshops", en: "AI Consulting & Workshops" },
     short: {
-      sv: "Inspirerande och jordnära föreläsningar om AI för konferenser, kickoffs och event.",
-      en: "Inspiring, down-to-earth talks about AI for conferences, kick-offs and events.",
+      sv: "Workshops, föreläsningar och rådgivning som hjälper team att förstå AI och använda det på riktigt.",
+      en: "Workshops, talks and advice that help teams understand AI and use it for real.",
     },
     intro: {
-      sv: "En föreläsning som gör AI begripligt för alla i publiken — utan hype och utan teknisk jargong. Innehållet anpassas efter publik, bransch och tema.",
-      en: "A talk that makes AI understandable for everyone in the audience — without hype or technical jargon. Content is adapted to the audience, industry and theme.",
+      sv: "Praktiska workshops med era egna arbetsuppgifter, föreläsningar för konferenser och personaldagar, samt rådgivning kring var och hur AI bör införas. På svenska eller engelska, på plats eller online.",
+      en: "Hands-on workshops using your own tasks, talks for conferences and staff days, and advice on where and how to introduce AI. In Swedish or English, on site or online.",
     },
+    seo: { sv: "AI-rådgivning och AI-workshops i Sverige", en: "AI consulting and workshops in Sweden" },
     forWho: {
-      sv: "Konferenser, personaldagar, branschträffar, nätverk och föreningar.",
-      en: "Conferences, staff days, industry meetups, networks and associations.",
+      sv: "Företag, ledningsgrupper, skolor, organisationer och privatpersoner som vill komma igång med AI tryggt.",
+      en: "Companies, leadership teams, schools, organisations and individuals who want to get started with AI safely.",
     },
-    outcomes: {
-      sv: ["En gemensam och realistisk bild av AI", "Konkreta exempel från vardag och arbetsliv", "Inspiration att själv börja testa"],
-      en: ["A shared, realistic picture of AI", "Concrete examples from everyday life and work", "Inspiration to start experimenting"],
+    problems: {
+      sv: ["Medarbetare är nyfikna men osäkra", "Ingen gemensam syn på hur AI får användas", "Verktyg köps in men används inte", "Oro kring säkerhet och integritet"],
+      en: ["Staff are curious but unsure", "No shared view of how AI may be used", "Tools are bought but not used", "Concerns about security and privacy"],
     },
-    includes: {
-      sv: ["Avstämning av tema och publik", "Föreläsning med live-demonstrationer", "Möjlighet till frågestund"],
-      en: ["Alignment on theme and audience", "Talk with live demonstrations", "Optional Q&A session"],
+    deliverables: {
+      sv: ["Workshop med praktiska övningar", "Föreläsning anpassad efter publiken", "Personlig AI-coachning", "Riktlinjer för ansvarsfull användning"],
+      en: ["Workshop with practical exercises", "Talk adapted to the audience", "Personal AI coaching", "Guidelines for responsible use"],
     },
-    formats: { sv: "På plats eller digitalt", en: "On site or digital" },
+    examples: {
+      sv: ["Halvdagsworkshop för ett säljteam", "Föreläsning på en kickoff", "Coachning för en egenföretagare"],
+      en: ["Half-day workshop for a sales team", "Talk at a kick-off", "Coaching for a sole trader"],
+    },
   },
   {
-    slug: "implementation",
-    image: heroWorkshop,
-    title: { sv: "AI-implementeringsworkshop", en: "AI implementation workshop" },
+    slug: "websites",
+    title: { sv: "Webbplatser & webbappar", en: "Websites & Web Applications" },
     short: {
-      sv: "Kartlägg var AI gör mest nytta i er verksamhet och ta fram en konkret plan.",
-      en: "Map where AI adds the most value in your organisation and create a concrete plan.",
+      sv: "Snabba, tillgängliga och flerspråkiga webbplatser och webbappar som gör det lätt för kunder att ta kontakt.",
+      en: "Fast, accessible, multilingual websites and web apps that make it easy for customers to get in touch.",
     },
     intro: {
-      sv: "En fördjupande workshop där vi tillsammans identifierar processer som kan förbättras med AI, prioriterar dem och tar fram nästa steg — realistiskt och anpassat efter era resurser.",
-      en: "An in-depth workshop where we identify processes that can be improved with AI, prioritise them and define next steps — realistically and adapted to your resources.",
+      sv: "Från en tydlig företagswebb till en webbapp med inloggning och bokning. Vi fokuserar på struktur, tydliga budskap, mobilanpassning, tillgänglighet och sökbarhet.",
+      en: "From a clear company website to a web app with sign-in and booking. We focus on structure, clear messaging, mobile layouts, accessibility and search visibility.",
     },
+    seo: { sv: "Webbutveckling för företag", en: "Website development for businesses" },
     forWho: {
-      sv: "Organisationer som redan testat AI och vill gå från enstaka försök till ett strukturerat arbetssätt.",
-      en: "Organisations that have tried AI and want to move from one-off experiments to a structured approach.",
+      sv: "Företag och organisationer som behöver en ny webbplats, en flerspråkig webb eller en enklare webbapp.",
+      en: "Businesses and organisations that need a new website, a multilingual site or a simple web app.",
     },
-    outcomes: {
-      sv: ["Kartläggning av möjliga användningsområden", "Prioriterad lista utifrån nytta och insats", "Handlingsplan med tydliga nästa steg"],
-      en: ["Map of possible use cases", "Prioritised list based on value and effort", "Action plan with clear next steps"],
+    problems: {
+      sv: ["Webbplatsen är föråldrad eller svår att uppdatera", "Fungerar dåligt i mobilen", "Kunder hittar inte hur de kontaktar er", "Behov av flera språk"],
+      en: ["The website is outdated or hard to update", "Works poorly on mobile", "Customers can't find how to contact you", "Need for several languages"],
     },
-    includes: {
-      sv: ["Intervju eller enkät före workshopen", "Facilitering av workshop", "Skriftlig sammanställning och plan"],
-      en: ["Interview or survey before the workshop", "Workshop facilitation", "Written summary and plan"],
+    deliverables: {
+      sv: ["Struktur och design", "Responsiv, tillgänglig webbplats", "Flerspråkigt stöd", "Grundläggande sökmotoroptimering"],
+      en: ["Structure and design", "Responsive, accessible website", "Multilingual support", "Basic search engine optimisation"],
     },
-    formats: { sv: "Helst på plats", en: "Preferably on site" },
+    examples: {
+      sv: ["Flerspråkig webbplats för en juristbyrå", "Bokningsförfrågan via e-postutkast"],
+      en: ["Multilingual website for a law firm", "Booking requests via email draft"],
+    },
   },
   {
-    slug: "schools",
-    image: talk,
-    title: { sv: "AI för skolor och organisationer", en: "AI for schools and organisations" },
+    slug: "custom-software",
+    title: { sv: "Skräddarsydd affärsmjukvara", en: "Custom Business Software" },
     short: {
-      sv: "Workshops för lärare, elever, föreningar och ideella organisationer.",
-      en: "Workshops for teachers, students, associations and non-profits.",
+      sv: "Interna verktyg och system byggda kring hur ni faktiskt arbetar – i stället för kalkylark och manuella steg.",
+      en: "Internal tools and systems built around how you actually work – instead of spreadsheets and manual steps.",
     },
     intro: {
-      sv: "Pedagogiska workshops som hjälper lärare och elever att förstå AI, använda det klokt och diskutera frågor om källkritik, etik och fusk.",
-      en: "Educational workshops that help teachers and students understand AI, use it wisely and discuss source criticism, ethics and cheating.",
+      sv: "När standardverktyg inte räcker bygger vi enkla, robusta interna verktyg: översikter, ärendehantering, kundregister eller integrationer mellan befintliga system, med AI där det gör verklig nytta.",
+      en: "When off-the-shelf tools aren't enough, we build simple, robust internal tools: dashboards, case handling, customer records or integrations between existing systems, with AI where it genuinely helps.",
     },
+    seo: { sv: "Skräddarsydd affärsmjukvara och interna verktyg", en: "Custom business software and internal tools" },
     forWho: {
-      sv: "Grundskolor, gymnasier, vuxenutbildning, studieförbund, föreningar och ideella organisationer.",
-      en: "Schools, upper secondary schools, adult education, study associations, clubs and non-profits.",
+      sv: "Verksamheter som har vuxit ur kalkylark eller behöver koppla ihop sina system.",
+      en: "Organisations that have outgrown spreadsheets or need to connect their systems.",
     },
-    outcomes: {
-      sv: ["Trygghet i att använda AI i undervisning och planering", "Gemensamma förhållningssätt kring AI", "Övningar som går att använda i klassrummet"],
-      en: ["Confidence using AI in teaching and planning", "Shared principles for AI use", "Exercises that work in the classroom"],
+    problems: {
+      sv: ["Arbetet styrs av kalkylark och e-post", "System pratar inte med varandra", "Ingen överblick över ärenden", "Standardprogram passar inte arbetssättet"],
+      en: ["Work runs on spreadsheets and email", "Systems don't talk to each other", "No overview of cases", "Off-the-shelf software doesn't fit the way you work"],
     },
-    includes: {
-      sv: ["Anpassning efter åldersgrupp", "Workshop med diskussion och övningar", "Material att använda efteråt"],
-      en: ["Adapted to the age group", "Workshop with discussion and exercises", "Material to use afterwards"],
+    deliverables: {
+      sv: ["Behovsanalys och prototyp", "Webbaserat internt verktyg", "Integrationer med befintliga system", "Behörigheter, test och driftsättning"],
+      en: ["Needs analysis and prototype", "Web-based internal tool", "Integrations with existing systems", "Permissions, testing and deployment"],
     },
-    formats: { sv: "På plats eller online", en: "On site or online" },
-  },
-  {
-    slug: "coaching",
-    image: coaching,
-    title: { sv: "Personlig AI-coachning", en: "Personal AI coaching" },
-    short: {
-      sv: "Individuell vägledning för dig som vill lära dig AI i din egen takt.",
-      en: "One-to-one guidance for anyone who wants to learn AI at their own pace.",
+    examples: {
+      sv: ["Ärendeöversikt för ett litet team", "Koppling mellan bokning och kalender"],
+      en: ["Case overview for a small team", "Connection between booking and calendar"],
     },
-    intro: {
-      sv: "Personliga sessioner där vi utgår från dina behov — i jobbet, studierna eller vardagen. Du får hjälp att komma igång, ställa rätt frågor och bygga egna rutiner.",
-      en: "Personal sessions based on your needs — at work, in studies or everyday life. You get help getting started, asking the right questions and building your own routines.",
-    },
-    forWho: {
-      sv: "Privatpersoner, egenföretagare, chefer och alla som vill ha personlig hjälp.",
-      en: "Individuals, freelancers, managers and anyone who wants personal help.",
-    },
-    outcomes: {
-      sv: ["Ett personligt upplägg för dina mål", "Praktisk träning på dina egna uppgifter", "Självförtroende att fortsätta på egen hand"],
-      en: ["A personal plan for your goals", "Practical training on your own tasks", "Confidence to continue on your own"],
-    },
-    includes: {
-      sv: ["Inledande behovssamtal", "En eller flera sessioner", "Tips och resurser att fortsätta med"],
-      en: ["Initial needs conversation", "One or more sessions", "Tips and resources to continue with"],
-    },
-    formats: { sv: "Online eller på plats", en: "Online or on site" },
-  },
-  {
-    slug: "custom",
-    image: coaching,
-    title: { sv: "Skräddarsydd AI-workshop", en: "Custom AI workshop" },
-    short: {
-      sv: "Har ni en särskild idé eller ett behov? Vi tar fram ett upplägg tillsammans.",
-      en: "Have a specific idea or need? We design a format together.",
-    },
-    intro: {
-      sv: "Ibland passar inget standardupplägg. Berätta vad ni vill uppnå, så föreslår vi ett innehåll och format som passar er grupp, tidsram och nivå.",
-      en: "Sometimes no standard format fits. Tell us what you want to achieve and we will propose content and a format that fits your group, timeframe and level.",
-    },
-    forWho: {
-      sv: "Alla som har ett specifikt behov — från ett kort lunchpass till en serie träffar.",
-      en: "Anyone with a specific need — from a short lunch session to a series of meetings.",
-    },
-    outcomes: {
-      sv: ["Innehåll som matchar exakt era mål", "Format anpassat efter er vardag", "Tydlig överenskommelse innan start"],
-      en: ["Content that matches your exact goals", "Format adapted to your reality", "A clear agreement before starting"],
-    },
-    includes: {
-      sv: ["Behovsanalys", "Förslag på upplägg", "Genomförande enligt överenskommelse"],
-      en: ["Needs analysis", "Proposed format", "Delivery as agreed"],
-    },
-    formats: { sv: "Enligt överenskommelse", en: "As agreed" },
   },
 ];
 

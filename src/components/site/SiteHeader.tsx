@@ -9,8 +9,9 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const links = [
     { to: "/services", label: t("Tjänster", "Services") },
+    { to: "/work", label: t("Projekt", "Work") },
+    { to: "/demo", label: t("Sandlåda", "Sandbox") },
     { to: "/about", label: t("Om AiLift", "About") },
-    { to: "/faq", label: "FAQ" },
     { to: "/contact", label: t("Kontakt", "Contact") },
   ] as const;
 
@@ -48,7 +49,7 @@ export function SiteHeader() {
         <div className="hidden items-center gap-3 md:flex">
           {LangToggle}
           <Button asChild variant="pill">
-            <Link to="/book">{t("Boka", "Book")}</Link>
+            <Link to="/contact">{t("Diskutera projekt", "Discuss a project")}</Link>
           </Button>
         </div>
         <button className="md:hidden" onClick={() => setOpen(!open)} aria-label={t("Meny", "Menu")} aria-expanded={open}>
@@ -65,7 +66,7 @@ export function SiteHeader() {
           <div className="flex items-center justify-between pt-2">
             {LangToggle}
             <Button asChild variant="pill">
-              <Link to="/book" onClick={() => setOpen(false)}>{t("Boka", "Book")}</Link>
+              <Link to="/contact" onClick={() => setOpen(false)}>{t("Diskutera projekt", "Discuss a project")}</Link>
             </Button>
           </div>
         </div>

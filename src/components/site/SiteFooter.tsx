@@ -10,7 +10,7 @@ export function SiteFooter() {
         <div className="md:col-span-2">
           <p className="font-display text-4xl">AiLift<span className="text-lime">.</span></p>
           <p className="mt-4 max-w-sm text-sm opacity-70">
-            {t("Gör AI användbart i verkligheten. Workshops, föreläsningar och vägledning av Zabihullah Ahmadzai.", "Make AI useful in real life. Workshops, talks and guidance by Zabihullah Ahmadzai.")}
+            {t("Praktisk AI, automation, webb och mjukvara för små och medelstora företag. Grundat av Zabihullah Ahmadzai.", "Practical AI, automation, web and software for small and medium-sized businesses. Founded by Zabihullah Ahmadzai.")}
           </p>
         </div>
         <div>
@@ -27,7 +27,9 @@ export function SiteFooter() {
           <p className="text-xs font-semibold uppercase tracking-widest opacity-60">AiLift</p>
           <ul className="mt-4 space-y-2 text-sm">
             <li><Link to="/about" className="opacity-80 hover:opacity-100">{t("Om AiLift", "About")}</Link></li>
-            <li><Link to="/book" className="opacity-80 hover:opacity-100">{t("Boka", "Book")}</Link></li>
+            <li><Link to="/work" className="opacity-80 hover:opacity-100">{t("Projekt", "Work")}</Link></li>
+            <li><Link to="/demo" className="opacity-80 hover:opacity-100">{t("Sandlåda", "Sandbox")}</Link></li>
+            <li><Link to="/book" className="opacity-80 hover:opacity-100">{t("Boka workshop", "Book a workshop")}</Link></li>
             <li><Link to="/faq" className="opacity-80 hover:opacity-100">FAQ</Link></li>
             <li><Link to="/contact" className="opacity-80 hover:opacity-100">{t("Kontakt", "Contact")}</Link></li>
             <li><Link to="/privacy" className="opacity-80 hover:opacity-100">{t("Integritet", "Privacy")}</Link></li>
