@@ -77,7 +77,7 @@ function Book() {
     <fieldset>
       <legend className="text-sm font-semibold">{label}</legend>
       <div className={`mt-2 grid gap-2 ${cols}`}>
-        {OPTIONS[k].map(([v, sv, en]) => (
+        {(OPTIONS[k] ?? []).map(([v, sv, en]) => (
           <Choice key={v} selected={f[k] === v} onPick={() => set(k, v)}>{t(sv, en)}</Choice>
         ))}
       </div>
