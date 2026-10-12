@@ -55,11 +55,14 @@ export function SendActions({
     return (
       <div role="status" aria-live="polite" className="rounded-2xl border-2 border-primary bg-card p-8 text-center">
         <CheckCircle2 className="mx-auto size-14 text-primary" />
-        <h3 className="mt-4 text-3xl">{t("Ditt meddelande har skickats!", "Your message has been sent!")}</h3>
-        <p className="mt-3 text-muted-foreground">
+        <h3 className="mt-4 text-3xl">{t("E-postmeddelandet har skickats!", "Your email has been sent!")}</h3>
+        <p className="mt-3 text-lg font-medium">
+          {t("Vi svarar inom 24 timmar.", "We'll answer you within 24 hours.")}
+        </p>
+        <p className="mt-2 text-muted-foreground">
           {kind === "booking"
-            ? t("Din bokningsförfrågan har skickats till AiLift. Du får svar via e-post. Bokningen är bekräftad först när AiLift har svarat.", "Your booking request has been sent to AiLift. You'll get a reply by email. The booking is confirmed once AiLift replies.")
-            : t("Ditt meddelande har skickats till AiLift. Du får svar via e-post så snart som möjligt.", "Your message has been sent to AiLift. You'll get a reply by email as soon as possible.")}
+            ? t("Din bokningsförfrågan har skickats till AiLift. Bokningen är bekräftad först när AiLift har svarat.", "Your booking request has been sent to AiLift. The booking is confirmed once AiLift replies.")
+            : t("Ditt meddelande har skickats till AiLift.", "Your message has been sent to AiLift.")}
         </p>
         <Button type="button" variant="pillOutline" size="xl" className="mt-6" onClick={() => { onClear(); setSendState(""); }}>
           {kind === "booking" ? t("Skicka en ny förfrågan", "Send another request") : t("Skicka ett nytt meddelande", "Send another message")}
