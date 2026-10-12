@@ -32,7 +32,7 @@ export function SendActions({
     if (!validate()) return;
     setSendState("sending");
     const message = getMessage();
-    const replyTo = message.match(/[^\s@:]+@[^\s@]+\.[^\s@]+/g)?.find((m) => m !== email) ?? undefined;
+    const replyTo = message.match(/[^\s@:]+@[^\s@]+\.[^\s@]+/g)?.find((m) => m !== email) ?? "";
     try {
       const r = await sendRequest({ data: { subject, message, replyTo } });
       setSendState(r.ok ? "sent" : "failed");
