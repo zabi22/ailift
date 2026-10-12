@@ -22,9 +22,9 @@ function Home() {
   const { lang, t } = useLang();
 
   const audiences = [
-    { icon: Building2, title: t("Företag och team", "Companies and teams"), text: t("Få hela teamet att använda AI tryggt och effektivt i det dagliga arbetet.", "Get the whole team using AI safely and effectively in daily work."), to: "/services/company-workshops" as const },
-    { icon: GraduationCap, title: t("Skolor och organisationer", "Schools and organisations"), text: t("Pedagogiska workshops för lärare, elever, föreningar och ideella organisationer.", "Educational workshops for teachers, students, clubs and non-profits."), to: "/services/schools" as const },
-    { icon: User, title: t("Privatpersoner", "Individuals"), text: t("Personlig coachning i din egen takt — i jobbet, studierna eller vardagen.", "Personal coaching at your own pace — at work, in studies or everyday life."), to: "/services/coaching" as const },
+    { icon: Building2, title: t("Företag och team", "Companies and teams"), text: t("Få hela teamet att använda AI tryggt och effektivt i det dagliga arbetet.", "Get the whole team using AI safely and effectively in daily work."), slug: "company-workshops" },
+    { icon: GraduationCap, title: t("Skolor och organisationer", "Schools and organisations"), text: t("Pedagogiska workshops för lärare, elever, föreningar och ideella organisationer.", "Educational workshops for teachers, students, clubs and non-profits."), slug: "schools" },
+    { icon: User, title: t("Privatpersoner", "Individuals"), text: t("Personlig coachning i din egen takt — i jobbet, studierna eller vardagen.", "Personal coaching at your own pace — at work, in studies or everyday life."), slug: "coaching" },
   ];
 
   const outcomes = [
@@ -83,7 +83,7 @@ function Home() {
           <h2 className="mt-4 max-w-2xl text-4xl md:text-5xl">{t("AI-kunskap anpassad efter var du står.", "AI knowledge tailored to where you are.")}</h2>
           <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-border bg-border md:grid-cols-3">
             {audiences.map((a) => (
-              <Link key={a.title} to={a.to} className="group flex flex-col bg-background p-8 transition-colors hover:bg-card">
+              <Link key={a.title} to="/services/$slug" params={{ slug: a.slug }} className="group flex flex-col bg-background p-8 transition-colors hover:bg-card">
                 <a.icon className="size-6" strokeWidth={1.5} />
                 <h3 className="mt-8 text-2xl">{a.title}</h3>
                 <p className="mt-3 flex-1 text-muted-foreground">{a.text}</p>

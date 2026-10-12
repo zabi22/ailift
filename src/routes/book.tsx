@@ -80,17 +80,17 @@ function Book() {
     ["school", t("Skola", "School")],
     ["organization", t("Organisation / förening", "Organisation / association")],
     ["individual", t("Privatperson", "Individual")],
-  ];
+  ] as [string, string][];
   const formats = [
     ["onsite", t("På plats", "On site")],
     ["online", "Online"],
     ["either", t("Spelar ingen roll", "Either")],
-  ];
+  ] as [string, string][];
   const times = [
     ["morning", t("Förmiddag", "Morning")],
     ["afternoon", t("Eftermiddag", "Afternoon")],
     ["full_day", t("Heldag", "Full day")],
-  ];
+  ] as [string, string][];
 
   function validate(s: number) {
     const e: Errs = {};
