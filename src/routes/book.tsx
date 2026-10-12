@@ -3,9 +3,9 @@ import { useState, type ReactNode } from "react";
 import { z } from "zod";
 import { ArrowLeft, ArrowRight, Pencil } from "lucide-react";
 import { useLang } from "@/lib/i18n";
-import { SERVICES } from "@/lib/services";
+
 import {
-  OPTIONS, bookingMessage, bookingSubject, emptyBooking, groupFor, reviewRows, usesParticipants, validateStep,
+  SESSION_TYPES, OPTIONS, bookingMessage, bookingSubject, emptyBooking, groupFor, reviewRows, usesParticipants, validateStep,
   type BookingForm, type Errors,
 } from "@/lib/booking";
 import { SendActions } from "@/components/site/SendActions";
@@ -47,13 +47,13 @@ function Choice({ selected, onPick, children }: { selected: boolean; onPick: () 
 function Book() {
   const { lang, t } = useLang();
   const search = Route.useSearch();
-  const initial = () => emptyBooking(SERVICES.some((s) => s.slug === search.service) ? (search.service as string) : "");
+  const initial = () => emptyBooking(SESSION_TYPES.some((s) => s.slug === search.service) ? (search.service as string) : "");
   const [f, setF] = useState<BookingForm>(initial);
   const [step, setStep] = useState(0);
   const [errors, setErrors] = useState<Errors>({});
   const set = <K extends keyof BookingForm>(k: K, v: BookingForm[K]) => setF((p) => ({ ...p, [k]: v }));
   const g = groupFor(f.service);
-  const svcTitle = SERVICES.find((s) => s.slug === f.service)?.title[lang] ?? "";
+  const svcTitle = SESSION_TYPES.find((s) => s.slug === f.service)?.title[lang] ?? "";
   const tomorrow = new Date(Date.now() + 864e5).toISOString().slice(0, 10);
   const opt = (sv: string, en: string) => `${t(sv, en)} ${t("(valfritt)", "(optional)")}`;
 
@@ -161,7 +161,7 @@ function Book() {
           <fieldset>
             <legend className="font-display text-2xl">{t("Vilken tjänst?", "Which service?")}</legend>
             <div className="mt-4 grid gap-3 sm:grid-cols-2">
-              {SERVICES.map((s) => (
+              {SESSION_TYPES.map((s) => (
                 <Choice key={s.slug} selected={f.service === s.slug} onPick={() => set("service", s.slug)}>
                   <span className="font-semibold">{s.title[lang]}</span>
                 </Choice>

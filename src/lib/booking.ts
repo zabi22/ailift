@@ -152,3 +152,13 @@ export function bookingMessage(f: BookingForm, lang: Lang, serviceTitle: string)
     .join("\n\n");
   return `${head}\n\n${body}`;
 }
+
+/** Session types offered under "AI Consulting & Workshops"; used only by the booking form. */
+export const SESSION_TYPES: { slug: string; title: { sv: string; en: string } }[] = [
+  { slug: "company-workshops", title: { sv: "AI-workshop för företag", en: "AI workshop for companies" } },
+  { slug: "talks", title: { sv: "Föreläsning eller presentation", en: "Talk or presentation" } },
+  { slug: "implementation", title: { sv: "AI-implementeringsworkshop", en: "AI implementation workshop" } },
+  { slug: "schools", title: { sv: "Workshop för skola eller organisation", en: "Workshop for a school or organisation" } },
+  { slug: "coaching", title: { sv: "Personlig AI-coachning", en: "Personal AI coaching" } },
+  { slug: "custom", title: { sv: "Skräddarsydd workshop", en: "Custom workshop" } },
+];
