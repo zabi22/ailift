@@ -1,181 +1,133 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, ArrowUpRight, Building2, GraduationCap, User } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Bot, GraduationCap, Globe, Boxes } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { SERVICES } from "@/lib/services";
+import { PROJECTS } from "@/lib/projects";
 import { Button } from "@/components/ui/button";
-import heroImg from "@/assets/hero-workshop.jpg";
-import coachingImg from "@/assets/coaching.jpg";
+import { StatusBadge } from "@/components/site/StatusBadge";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "AiLift — Gör AI användbart i verkligheten" },
-      { name: "description", content: "Praktiska AI-workshops, föreläsningar och personlig coachning för företag, skolor och privatpersoner. Grundat av Zabihullah Ahmadzai." },
-      { property: "og:title", content: "AiLift — Gör AI användbart i verkligheten" },
-      { property: "og:description", content: "Praktiska AI-workshops, föreläsningar och personlig coachning för företag, skolor och privatpersoner." },
+      { title: "AiLift — Praktisk AI, smartare företag" },
+      { name: "description", content: "AiLift hjälper småföretag att automatisera repetitivt arbete med AI, bygga webbplatser och skräddarsydd mjukvara, och komma igång med AI genom workshops." },
+      { property: "og:title", content: "AiLift — Praktisk AI, smartare företag" },
+      { property: "og:description", content: "AI-automation, AI-rådgivning, webbutveckling och skräddarsydd affärsmjukvara för små och medelstora företag." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Home,
 });
 
+const ICONS = [Bot, GraduationCap, Globe, Boxes];
+
 function Home() {
   const { lang, t } = useLang();
-
-  const audiences = [
-    { icon: Building2, title: t("Företag och team", "Companies and teams"), text: t("Få hela teamet att använda AI tryggt och effektivt i det dagliga arbetet.", "Get the whole team using AI safely and effectively in daily work."), slug: "company-workshops" },
-    { icon: GraduationCap, title: t("Skolor och organisationer", "Schools and organisations"), text: t("Pedagogiska workshops för lärare, elever, föreningar och ideella organisationer.", "Educational workshops for teachers, students, clubs and non-profits."), slug: "schools" },
-    { icon: User, title: t("Privatpersoner", "Individuals"), text: t("Personlig coachning i din egen takt — i jobbet, studierna eller vardagen.", "Personal coaching at your own pace — at work, in studies or everyday life."), slug: "coaching" },
-  ];
-
-  const outcomes = [
-    t("Förstå vad AI faktiskt kan — och var gränserna går", "Understand what AI can actually do — and where the limits are"),
-    t("Spara tid på återkommande uppgifter", "Save time on recurring tasks"),
-    t("Använda AI ansvarsfullt och säkert", "Use AI responsibly and securely"),
-    t("Bygga egna arbetssätt som håller över tid", "Build your own ways of working that last"),
-  ];
-
+  const featured = PROJECTS.slice(0, 3);
   const steps = [
-    { n: "01", title: t("Berätta vad ni vill uppnå", "Tell us what you want to achieve"), text: t("Välj en tjänst och beskriv era mål och önskade datum.", "Pick a service and describe your goals and preferred dates.") },
-    { n: "02", title: t("Skicka ett e-postmeddelande", "Send an email"), text: t("Formuläret skapar ett färdigt e-postutkast som du granskar och skickar själv.", "The form creates a ready-made email draft that you review and send yourself.") },
-    { n: "03", title: t("Vi stämmer av och bekräftar", "We agree on details and confirm"), text: t("Zabihullah kontaktar dig, går igenom upplägget och bekräftar bokningen.", "Zabihullah contacts you, goes through the details and confirms the booking.") },
+    [t("Förstå problemet", "Discover the problem"), t("Vi går igenom hur ni arbetar idag och var tiden går åt.", "We look at how you work today and where time is lost.")],
+    [t("Utforma lösningen", "Design the solution"), t("Ett konkret förslag med omfattning och pris innan något byggs.", "A concrete proposal with scope and price before anything is built.")],
+    [t("Bygga och testa", "Build and test"), t("Vi bygger i små steg och testar med riktiga uppgifter.", "We build in small steps and test with real tasks.")],
+    [t("Driftsätta och förbättra", "Deploy and improve"), t("Lösningen tas i bruk och justeras efter hur den används.", "The solution goes live and is adjusted based on how it's used.")],
   ];
 
   return (
     <>
-      {/* Hero */}
-      <section className="container-page grid items-center gap-12 pb-20 pt-12 md:grid-cols-12 md:pt-20">
-        <div className="md:col-span-6">
-          <p className="eyebrow fade-up">{t("AI-workshops · Föreläsningar · Coachning", "AI workshops · Talks · Coaching")}</p>
-          <h1 className="fade-up mt-6 text-6xl md:text-8xl">
-            {lang === "sv" ? (
-              <>Gör AI <span className="lime-mark italic">användbart</span> i verkligheten.</>
-            ) : (
-              <>Make AI <span className="lime-mark italic">useful</span> in real life.</>
-            )}
-          </h1>
-          <p className="fade-up mt-8 max-w-lg text-lg text-muted-foreground">
-            {t("Praktisk AI-utbildning, workshops och vägledning som hjälper människor att förstå AI och använda det effektivt i arbete, utbildning och vardag.", "Practical AI education, workshops and guidance that help people understand AI and use it effectively in work, education and everyday life.")}
-          </p>
-          <div className="fade-up mt-10 flex flex-wrap gap-3">
-            <Button asChild variant="lime" size="xl">
-              <Link to="/book">{t("Skicka bokningsförfrågan", "Request a booking")} <ArrowRight /></Link>
-            </Button>
-            <Button asChild variant="pillOutline" size="xl">
-              <Link to="/services">{t("Se tjänsterna", "View services")}</Link>
-            </Button>
-          </div>
-        </div>
-        <div className="md:col-span-6">
-          <div className="relative">
-            <img src={heroImg} alt={t("Workshop där en grupp diskuterar AI runt ett bord", "Workshop where a group discusses AI around a table")} width={1600} height={1104} className="aspect-[4/3] w-full rounded-2xl object-cover" />
-            <div className="absolute -bottom-6 left-6 rounded-xl bg-lime px-5 py-4 text-lime-foreground shadow-lg">
-              <p className="text-xs font-semibold uppercase tracking-widest">{t("Svenska & engelska", "Swedish & English")}</p>
-              <p className="font-display text-xl">{t("På plats eller online", "On site or online")}</p>
-            </div>
-          </div>
+      <section className="container-page pb-24 pt-16 md:pt-28">
+        <p className="eyebrow fade-up">{t("AI · Automation · Webb · Mjukvara", "AI · Automation · Web · Software")}</p>
+        <h1 className="fade-up mt-6 max-w-5xl text-6xl md:text-8xl">
+          {lang === "sv" ? <>Praktisk AI. <span className="lime-mark italic">Smartare</span> företag.</> : <>Practical AI. <span className="lime-mark italic">Smarter</span> business.</>}
+        </h1>
+        <p className="fade-up mt-8 max-w-2xl text-xl text-muted-foreground">
+          {t("Vi hjälper företag att automatisera repetitivt arbete, bygga bättre digitala produkter och göra AI till praktisk affärsnytta.", "We help businesses automate repetitive work, build better digital products, and turn AI into practical business value.")}
+        </p>
+        <div className="fade-up mt-10 flex flex-wrap gap-3">
+          <Button asChild variant="lime" size="xl"><Link to="/contact">{t("Diskutera ett projekt", "Discuss a project")} <ArrowRight /></Link></Button>
+          <Button asChild variant="pillOutline" size="xl"><Link to="/work">{t("Se vårt arbete", "Explore our work")}</Link></Button>
         </div>
       </section>
 
-      {/* Audiences */}
-      <section className="border-y border-border bg-secondary/60 py-20">
+      <section className="border-y border-border bg-secondary/60 py-24">
         <div className="container-page">
-          <p className="eyebrow">{t("Vem är du?", "Who are you?")}</p>
-          <h2 className="mt-4 max-w-2xl text-4xl md:text-5xl">{t("AI-kunskap anpassad efter var du står.", "AI knowledge tailored to where you are.")}</h2>
-          <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-border bg-border md:grid-cols-3">
-            {audiences.map((a) => (
-              <Link key={a.title} to="/services/$slug" params={{ slug: a.slug }} className="group flex flex-col bg-background p-8 transition-colors hover:bg-card">
-                <a.icon className="size-6" strokeWidth={1.5} />
-                <h3 className="mt-8 text-2xl">{a.title}</h3>
-                <p className="mt-3 flex-1 text-muted-foreground">{a.text}</p>
-                <span className="mt-6 inline-flex items-center gap-1 text-sm font-semibold">
-                  {t("Läs mer", "Learn more")} <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                </span>
-              </Link>
-            ))}
+          <p className="eyebrow">{t("Tjänster", "Services")}</p>
+          <h2 className="mt-4 max-w-2xl text-4xl md:text-5xl">{t("Fyra sätt vi kan hjälpa till.", "Four ways we can help.")}</h2>
+          <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-border bg-border md:grid-cols-2">
+            {SERVICES.map((s, i) => {
+              const Icon = ICONS[i]!;
+              return (
+                <Link key={s.slug} to="/services/$slug" params={{ slug: s.slug }} className="group flex flex-col bg-background p-8 transition-colors hover:bg-card md:p-10">
+                  <Icon className="size-6" strokeWidth={1.5} />
+                  <h3 className="mt-8 text-3xl">{s.title[lang]}</h3>
+                  <p className="mt-3 text-muted-foreground">{s.short[lang]}</p>
+                  <ul className="mt-6 flex-1 space-y-1 text-sm">
+                    {s.deliverables[lang].slice(0, 3).map((d) => <li key={d}>— {d}</li>)}
+                  </ul>
+                  <span className="mt-8 inline-flex items-center gap-1 text-sm font-semibold">
+                    {t("Läs mer", "Learn more")} <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                  </span>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* Services list */}
       <section className="container-page py-24">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
-            <p className="eyebrow">{t("Tjänster", "Services")}</p>
-            <h2 className="mt-4 text-4xl md:text-5xl">{t("Sex sätt att komma igång.", "Six ways to get started.")}</h2>
+            <p className="eyebrow">{t("Utvalt arbete", "Selected work")}</p>
+            <h2 className="mt-4 text-4xl md:text-5xl">{t("Verkliga projekt, ärligt märkta.", "Real projects, honestly labelled.")}</h2>
           </div>
-          <Link to="/services" className="text-sm font-semibold underline underline-offset-4">{t("Alla tjänster", "All services")}</Link>
+          <Link to="/work" className="text-sm font-semibold underline underline-offset-4">{t("Alla projekt", "All projects")}</Link>
         </div>
-        <ul className="mt-12 divide-y divide-border border-y border-border">
-          {SERVICES.map((s, i) => (
-            <li key={s.slug}>
-              <Link to="/services/$slug" params={{ slug: s.slug }} className="group grid items-baseline gap-2 py-7 md:grid-cols-12">
-                <span className="text-sm text-muted-foreground md:col-span-1">0{i + 1}</span>
-                <span className="font-display text-2xl transition-transform group-hover:translate-x-1 md:col-span-5 md:text-3xl">{s.title[lang]}</span>
-                <span className="text-muted-foreground md:col-span-5">{s.short[lang]}</span>
-                <ArrowUpRight className="hidden justify-self-end md:col-span-1 md:block" />
-              </Link>
-            </li>
+        <div className="mt-12 grid gap-6 md:grid-cols-3">
+          {featured.map((p) => (
+            <Link key={p.slug} to="/work/$slug" params={{ slug: p.slug }} className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-card transition-shadow hover:shadow-xl">
+              {p.screenshots?.[0] ? (
+                <img src={p.screenshots[0].src} alt={p.screenshots[0].alt[lang]} loading="lazy" className="aspect-[16/10] w-full object-cover object-top" />
+              ) : (
+                <div className="flex aspect-[16/10] items-end bg-ink p-6 text-ink-foreground">
+                  <p className="font-display text-2xl">{p.title}</p>
+                </div>
+              )}
+              <div className="flex flex-1 flex-col p-6">
+                <div className="flex items-center justify-between gap-2">
+                  <p className="eyebrow">{p.category[lang]}</p>
+                  <StatusBadge status={p.status} />
+                </div>
+                <h3 className="mt-3 text-2xl">{p.title}</h3>
+                <p className="mt-2 flex-1 text-sm text-muted-foreground">{p.summary[lang]}</p>
+              </div>
+            </Link>
           ))}
-        </ul>
+        </div>
       </section>
 
-      {/* Outcomes */}
       <section className="bg-ink py-24 text-ink-foreground">
-        <div className="container-page grid gap-12 md:grid-cols-2">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-widest opacity-60">{t("Vad du får", "What you get")}</p>
-            <h2 className="mt-4 text-4xl md:text-5xl">{t("Mindre hype. Mer nytta.", "Less hype. More value.")}</h2>
-            <p className="mt-6 max-w-md opacity-70">{t("Fokus ligger på det som fungerar i praktiken — med era egna uppgifter, i er egen vardag.", "The focus is on what works in practice — with your own tasks, in your own reality.")}</p>
-          </div>
-          <ul className="space-y-6">
-            {outcomes.map((o) => (
-              <li key={o} className="flex gap-4 border-b border-ink-foreground/10 pb-6 text-lg">
-                <span className="mt-2 size-2 shrink-0 rounded-full bg-lime" aria-hidden />
-                {o}
+        <div className="container-page">
+          <p className="text-xs font-semibold uppercase tracking-widest opacity-60">{t("Så arbetar vi", "How we work")}</p>
+          <h2 className="mt-4 text-4xl md:text-5xl">{t("Från problem till fungerande lösning.", "From problem to working solution.")}</h2>
+          <ol className="mt-12 grid gap-10 md:grid-cols-4">
+            {steps.map(([h, p], i) => (
+              <li key={h} className="border-t border-ink-foreground/20 pt-6">
+                <p className="font-display text-4xl text-lime">0{i + 1}</p>
+                <h3 className="mt-4 text-2xl">{h}</h3>
+                <p className="mt-3 opacity-70">{p}</p>
               </li>
             ))}
-          </ul>
+          </ol>
         </div>
       </section>
 
-      {/* Process */}
-      <section className="container-page py-24">
-        <p className="eyebrow">{t("Så går det till", "How it works")}</p>
-        <h2 className="mt-4 text-4xl md:text-5xl">{t("Tre enkla steg.", "Three simple steps.")}</h2>
-        <div className="mt-12 grid gap-10 md:grid-cols-3">
-          {steps.map((s) => (
-            <div key={s.n} className="border-t-2 border-foreground pt-6">
-              <p className="font-display text-5xl text-muted-foreground">{s.n}</p>
-              <h3 className="mt-4 text-2xl">{s.title}</h3>
-              <p className="mt-3 text-muted-foreground">{s.text}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Founder */}
-      <section className="container-page grid items-center gap-12 py-12 md:grid-cols-2">
-        <img src={coachingImg} alt={t("Personlig AI-vägledning vid en laptop", "Personal AI guidance at a laptop")} loading="lazy" width={1408} height={1008} className="aspect-[4/3] w-full rounded-2xl object-cover" />
-        <div>
-          <p className="eyebrow">{t("Grundare", "Founder")}</p>
-          <h2 className="mt-4 text-4xl md:text-5xl">Zabihullah Ahmadzai</h2>
-          <p className="mt-6 text-lg text-muted-foreground">
-            {t("AiLift startades med en enkel idé: AI ska vara begripligt och användbart för alla — inte bara för tekniker. Genom workshops, föreläsningar och personlig vägledning hjälper Zabihullah människor och organisationer att ta de första stegen och bygga verkliga arbetssätt.", "AiLift started with a simple idea: AI should be understandable and useful for everyone — not just technologists. Through workshops, talks and personal guidance, Zabihullah helps people and organisations take the first steps and build real ways of working.")}
-          </p>
-          <Button asChild variant="pillOutline" size="xl" className="mt-8">
-            <Link to="/about">{t("Mer om AiLift", "More about AiLift")}</Link>
-          </Button>
-        </div>
-      </section>
-
-      {/* CTA */}
       <section className="container-page pt-24">
         <div className="rounded-3xl bg-lime px-8 py-16 text-lime-foreground md:px-16">
-          <h2 className="max-w-3xl text-4xl md:text-6xl">{t("Redo att göra AI användbart för er?", "Ready to make AI useful for you?")}</h2>
-          <p className="mt-6 max-w-xl text-lg">{t("Skicka en bokningsförfrågan — det är kostnadsfritt och helt utan förpliktelser.", "Send a booking request — it's free and without obligation.")}</p>
-          <Button asChild variant="pill" size="xl" className="mt-8">
-            <Link to="/book">{t("Skicka förfrågan", "Send request")} <ArrowRight /></Link>
-          </Button>
+          <h2 className="max-w-3xl text-4xl md:text-6xl">{t("Vilket problem vill du lösa?", "What problem do you want to solve?")}</h2>
+          <p className="mt-6 max-w-xl text-lg">{t("Beskriv det med några meningar. Vi återkommer med frågor och ett förslag – utan förpliktelser.", "Describe it in a few sentences. We'll come back with questions and a proposal – no obligation.")}</p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Button asChild variant="pill" size="xl"><Link to="/contact">{t("Diskutera ett projekt", "Discuss a project")} <ArrowRight /></Link></Button>
+            <Button asChild variant="pillOutline" size="xl"><Link to="/demo">{t("Prova AI-sandlådan", "Try the AI sandbox")}</Link></Button>
+          </div>
         </div>
       </section>
     </>
