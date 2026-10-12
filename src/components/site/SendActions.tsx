@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Copy, Mail } from "lucide-react";
+import { Copy, Mail, Send } from "lucide-react";
+import { sendRequest } from "@/lib/send-request.functions";
 import { useLang } from "@/lib/i18n";
 import { buildMailto, copyText, resolveContactEmail } from "@/lib/contact";
 import { Button } from "@/components/ui/button";
@@ -25,6 +26,20 @@ export function SendActions({
   const email = resolveContactEmail();
   const [status, setStatus] = useState<"" | "copied" | "copyFailed">("");
   const [fallbackText, setFallbackText] = useState("");
+  const [sendState, setSendState] = useState<"" | "sending" | "sent" | "failed">("");
+
+  async function onSend() {
+    if (!validate()) return;
+    setSendState("sending");
+    const message = getMessage();
+    const replyTo = message.match(/[^\s@:]+@[^\s@]+\.[^\s@]+/g)?.find((m) => m !== email) ?? "";
+    try {
+      const r = await sendRequest({ data: { subject, message, replyTo } });
+      setSendState(r.ok ? "sent" : "failed");
+    } catch {
+      setSendState("failed");
+    }
+  }
 
   async function onCopy() {
     if (!validate()) return;
@@ -50,11 +65,14 @@ export function SendActions({
         <Button type="button" variant="ghost" onClick={() => { onClear(); setStatus(""); setFallbackText(""); }}>
           {t("Rensa formuläret", "Clear form")}
         </Button>
-        <Button type="button" variant={email ? "pillOutline" : "lime"} size="xl" onClick={onCopy}>
+        <Button type="button" variant="ghost" size="xl" onClick={onCopy}>
           {copyLabel} <Copy />
         </Button>
+        <Button type="button" variant="lime" size="xl" onClick={onSend} disabled={sendState === "sending" || sendState === "sent"}>
+          {sendState === "sending" ? t("Skickar…", "Sending…") : t("Skicka till AiLift", "Send to AiLift")} <Send />
+        </Button>
         {email && (
-          <Button asChild variant="lime" size="xl">
+          <Button asChild variant="pillOutline" size="xl">
             <a href={buildMailto(email, subject, getMessage())} onClick={(e) => { if (!validate()) e.preventDefault(); }}>
               {t("Öppna e-postutkast", "Open email draft")} <Mail />
             </a>
@@ -67,6 +85,16 @@ export function SendActions({
         </p>
       )}
       <div aria-live="polite">
+        {sendState === "sent" && (
+          <p className="rounded-lg border border-border bg-card p-4 text-sm">
+            {t("Skickat till AiLift. Du får svar via e-post. Bokningen är inte bekräftad förrän AiLift har svarat.", "Sent to AiLift. You'll get a reply by email. The booking isn't confirmed until AiLift replies.")}
+          </p>
+        )}
+        {sendState === "failed" && (
+          <p className="rounded-lg bg-muted p-4 text-sm">
+            {t("Det gick inte att skicka just nu. Använd e-postutkastet eller kopiera meddelandet istället.", "Couldn't send right now. Please use the email draft or copy the message instead.")}
+          </p>
+        )}
         {status === "copied" && (
           <p className="rounded-lg border border-border bg-card p-4 text-sm">
             {t("Kopierat till urklipp. Observera: inget har skickats ännu — klistra in och skicka meddelandet själv.", "Copied to clipboard. Note: nothing has been sent yet — paste and send the message yourself.")}
