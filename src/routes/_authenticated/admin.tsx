@@ -4,6 +4,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { LogOut, Trash2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import type { Tables } from "@/integrations/supabase/types";
 import { SERVICES } from "@/lib/services";
 import { useLang } from "@/lib/i18n";
 import { Button } from "@/components/ui/button";
@@ -162,11 +163,7 @@ function Bookings() {
   );
 }
 
-type BookingRow = NonNullable<Awaited<ReturnType<typeof fetchOne>>>;
-async function fetchOne() {
-  const { data } = await supabase.from("bookings").select("*").limit(1).single();
-  return data;
-}
+type BookingRow = Tables<"bookings">;
 
 function BookingEditor({ booking: b }: { booking: BookingRow }) {
   const { lang, t } = useLang();
