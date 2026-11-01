@@ -15,3 +15,5 @@
 - Bilingual copy is inline via `useLang().t(sv, en)`; service content lives in `src/lib/services.ts`, portfolio in `src/lib/projects.ts` (every project carries an explicit status), booking session types in `src/lib/booking.ts`.
 - The /demo sandbox is deterministic sample data in `src/lib/demo.ts`; it must stay labelled as non-live and never call external services.
 - Images are bundled files in src/assets (not CDN pointers) so the site also works when hosted outside Lovable, e.g. Vercel.
+- Every project in `src/lib/projects.ts` has `kind: "client" | "lab"`; /work renders them as separate sections so prototypes are never shown as client deliveries.
+- Sandbox demos (`src/components/site/LabDemos.tsx`, data in `src/lib/lab-demos.ts`) must each state whether they genuinely run or are simulations; they never call external services.

@@ -11,3 +11,5 @@
 - [ ] Geomagnetic research details (needs material from owner)
 - [x] New custom logo installed
 - [x] "Sent, we answer within 24 hours" confirmation wording on booking + contact
+- [x] Studio upgrade: Website Testing service, capabilities in services, Client work vs Labs, 4 sandbox demos, project brief builder
+- [ ] Review the deployed (Vercel) version after redeploy (needs the user to redeploy)
