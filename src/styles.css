@@ -28,6 +28,7 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-lime: var(--lime);
   --color-lime-foreground: var(--lime-foreground);
+  --color-azure: var(--azure);
   --color-ink: var(--ink);
   --color-ink-foreground: var(--ink-foreground);
   --color-success: var(--success);
@@ -66,6 +67,7 @@
   --accent-foreground: oklch(0.23 0.045 262);
   --lime: oklch(0.9 0.19 125);
   --lime-foreground: oklch(0.23 0.045 262);
+  --azure: oklch(0.58 0.16 248);
   --ink: oklch(0.2 0.045 262);
   --ink-foreground: oklch(0.97 0.008 85);
   --success: oklch(0.55 0.13 150);
@@ -144,4 +146,12 @@
 
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+
+@utility reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+  &.is-visible { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { opacity: 1; transform: none; transition: none; }
 }
