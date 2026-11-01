@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, ArrowUpRight, Bot, GraduationCap, Globe, Boxes } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Bot, GraduationCap, Globe, Boxes, PenTool, Newspaper } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { SERVICES } from "@/lib/services";
 import { PROJECTS } from "@/lib/projects";
@@ -20,7 +20,7 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-const ICONS = [Bot, GraduationCap, Globe, Boxes];
+const ICONS = [Bot, GraduationCap, Globe, Boxes, PenTool, Newspaper];
 
 function Home() {
   const { lang, t } = useLang();
