@@ -53,11 +53,11 @@ function Brief() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [org, setOrg] = useState("");
-  const [err, setErr] = useState<Record<string, string>>({});
+  const [err, setErr] = useState<Partial<Record<"type" | "time" | "goal" | "name" | "email", string>>>({});
 
   const toggle = (k: string) => setNeeds((n) => (n.includes(k) ? n.filter((x) => x !== k) : [...n, k]));
   const validate = () => {
-    const e: Record<string, string> = {};
+    const e: Partial<Record<"type" | "time" | "goal" | "name" | "email", string>> = {};
     if (!type) e.type = t("Välj en projekttyp", "Choose a project type");
     if (!time) e.time = t("Välj en tidsplan", "Choose a timeline");
     if (goal.trim().length < 20) e.goal = t("Beskriv målet med minst 20 tecken", "Describe the goal in at least 20 characters");
