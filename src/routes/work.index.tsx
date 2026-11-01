@@ -31,7 +31,7 @@ function Work() {
       />
       <section className="container-page grid gap-6 md:grid-cols-2">
         {PROJECTS.map((p, i) => (
-          <Link key={p.slug} {...(p.caseStudy ? { to: p.caseStudy } : { to: "/work/$slug" as const, params: { slug: p.slug } })} className={`group flex flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${i === 0 ? "md:col-span-2" : ""}`}>
+          <Link key={p.slug} to={(p.caseStudy ?? "/work/$slug") as "/work/$slug"} params={{ slug: p.slug }} className={`group flex flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${i === 0 ? "md:col-span-2" : ""}`}>
             {p.screenshots?.[0] ? (
               <img src={p.screenshots[0].src} alt={p.screenshots[0].alt[lang]} loading={i === 0 ? "eager" : "lazy"} className={`w-full object-cover object-top ${i === 0 ? "aspect-[16/8]" : "aspect-[16/10]"}`} />
             ) : p.caseStudy ? (
