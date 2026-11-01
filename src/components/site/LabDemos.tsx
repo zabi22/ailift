@@ -72,8 +72,8 @@ export function DashboardDemo() {
         </dl>
         <div className="mt-6 flex h-40 items-end gap-2" role="img" aria-label={t("Stapeldiagram med exempeldata", "Bar chart with sample data")}>
           {rows.map((r) => (
-            <div key={r.m.en} className="flex flex-1 flex-col items-center gap-1">
-              <div className="w-full rounded-t bg-primary transition-all duration-500" style={{ height: `${(r.enquiries / max) * 100}%` }} title={`${r.enquiries}`} />
+            <div key={r.m.en} className="flex h-full flex-1 flex-col items-center justify-end gap-1">
+              <div className="w-full flex-none rounded-t bg-primary transition-all duration-500" style={{ height: `${(r.enquiries / max) * 85}%` }} title={`${r.enquiries}`} />
               <span className="text-[10px] text-muted-foreground">{r.m[lang]}</span>
             </div>
           ))}
