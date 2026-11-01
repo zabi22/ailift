@@ -155,3 +155,7 @@
   &.is-visible { opacity: 1; transform: none; }
   @media (prefers-reduced-motion: reduce) { opacity: 1; transform: none; transition: none; }
 }
+
+@keyframes azure-grow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+.azure-bar { transform-box: fill-box; transform-origin: bottom; animation: azure-grow 1s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+@media (prefers-reduced-motion: reduce) { .azure-bar { animation: none; } }
