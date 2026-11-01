@@ -16,6 +16,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as DemoRouteImport } from './routes/demo'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as ProjectsAzureAnalyticsRouteImport } from './routes/projects.azure-analytics'
 import { Route as ServicesIndexRouteImport } from './routes/services.index'
 import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
 import { Route as WorkIndexRouteImport } from './routes/work.index'
@@ -56,6 +57,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
   path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProjectsAzureAnalyticsRoute = ProjectsAzureAnalyticsRouteImport.update({
+  id: '/projects/azure-analytics',
+  path: '/projects/azure-analytics',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ServicesIndexRoute = ServicesIndexRouteImport.update({
   id: '/services/',
   path: '/services/',
@@ -85,6 +91,7 @@ export interface FileRoutesByFullPath {
   '/demo': typeof DemoRoute
   '/faq': typeof FaqRoute
   '/privacy': typeof PrivacyRoute
+  '/projects/azure-analytics': typeof ProjectsAzureAnalyticsRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/work/$slug': typeof WorkSlugRoute
   '/services/': typeof ServicesIndexRoute
@@ -98,6 +105,7 @@ export interface FileRoutesByTo {
   '/demo': typeof DemoRoute
   '/faq': typeof FaqRoute
   '/privacy': typeof PrivacyRoute
+  '/projects/azure-analytics': typeof ProjectsAzureAnalyticsRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/work/$slug': typeof WorkSlugRoute
   '/services': typeof ServicesIndexRoute
@@ -112,6 +120,7 @@ export interface FileRoutesById {
   '/demo': typeof DemoRoute
   '/faq': typeof FaqRoute
   '/privacy': typeof PrivacyRoute
+  '/projects/azure-analytics': typeof ProjectsAzureAnalyticsRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/work/$slug': typeof WorkSlugRoute
   '/services/': typeof ServicesIndexRoute
@@ -127,6 +136,7 @@ export interface FileRouteTypes {
     | '/demo'
     | '/faq'
     | '/privacy'
+    | '/projects/azure-analytics'
     | '/services/$slug'
     | '/work/$slug'
     | '/services/'
@@ -140,6 +150,7 @@ export interface FileRouteTypes {
     | '/demo'
     | '/faq'
     | '/privacy'
+    | '/projects/azure-analytics'
     | '/services/$slug'
     | '/work/$slug'
     | '/services'
@@ -153,6 +164,7 @@ export interface FileRouteTypes {
     | '/demo'
     | '/faq'
     | '/privacy'
+    | '/projects/azure-analytics'
     | '/services/$slug'
     | '/work/$slug'
     | '/services/'
@@ -167,6 +179,7 @@ export interface RootRouteChildren {
   DemoRoute: typeof DemoRoute
   FaqRoute: typeof FaqRoute
   PrivacyRoute: typeof PrivacyRoute
+  ProjectsAzureAnalyticsRoute: typeof ProjectsAzureAnalyticsRoute
   ServicesSlugRoute: typeof ServicesSlugRoute
   WorkSlugRoute: typeof WorkSlugRoute
   ServicesIndexRoute: typeof ServicesIndexRoute
@@ -224,6 +237,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/projects/azure-analytics': {
+      id: '/projects/azure-analytics'
+      path: '/projects/azure-analytics'
+      fullPath: '/projects/azure-analytics'
+      preLoaderRoute: typeof ProjectsAzureAnalyticsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/services/': {
       id: '/services/'
       path: '/services'
@@ -263,6 +283,7 @@ const rootRouteChildren: RootRouteChildren = {
   DemoRoute: DemoRoute,
   FaqRoute: FaqRoute,
   PrivacyRoute: PrivacyRoute,
+  ProjectsAzureAnalyticsRoute: ProjectsAzureAnalyticsRoute,
   ServicesSlugRoute: ServicesSlugRoute,
   WorkSlugRoute: WorkSlugRoute,
   ServicesIndexRoute: ServicesIndexRoute,
