@@ -6,6 +6,7 @@ import { SCENARIOS } from "@/lib/demo";
 import { PageHeader } from "@/components/site/PageHeader";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { KnowledgeAssistantDemo, DashboardDemo, QaDemo } from "@/components/site/LabDemos";
 
 export const Route = createFileRoute("/demo")({
   head: () => ({
@@ -39,8 +40,8 @@ function Demo() {
     <>
       <PageHeader
         eyebrow={t("Sandlåda", "Sandbox")}
-        title={t("Så fungerar en AI-agent med godkännande.", "How an AI agent with approval works.")}
-        intro={t("Välj ett scenario, granska planen och godkänn eller avvisa varje åtgärd.", "Pick a scenario, review the plan, and approve or reject each action.")}
+        title={t("Sandlåda: prova hur det fungerar.", "Sandbox: try how it works.")}
+        intro={t("Fyra små demonstrationer. Varje del säger tydligt om den fungerar på riktigt eller är en simulering.", "Four small demonstrations. Each one says clearly whether it really works or is a simulation.")}
       />
       <section className="container-page max-w-4xl">
         <p role="note" className="mb-10 flex gap-3 rounded-xl border border-warning/50 bg-warning/10 p-4 text-sm">
@@ -48,7 +49,8 @@ function Demo() {
           {t("Exempelflöde med exempeldata. Ingen AI körs här, inga e-postmeddelanden skickas och inga riktiga konton används. Planerna är förberedda i förväg för att visa principen.", "Sample workflow with sample data. No AI runs here, no emails are sent and no real accounts are touched. The plans are prepared in advance to show the principle.")}
         </p>
 
-        <h2 className="font-display text-2xl">1. {t("Välj scenario", "Choose a scenario")}</h2>
+        <p className="font-display text-sm text-muted-foreground">01 · {t("Automationsflöde (simulering)", "Automation workflow (simulation)")}</p>
+        <h2 className="mt-2 font-display text-2xl">1. {t("Välj scenario", "Choose a scenario")}</h2>
         <div className="mt-4 grid gap-3 sm:grid-cols-3" role="radiogroup">
           {SCENARIOS.map((s) => (
             <button key={s.id} type="button" role="radio" aria-checked={id === s.id} onClick={() => pick(s.id)}
@@ -112,6 +114,11 @@ function Demo() {
           </div>
         )}
       </section>
+      <div className="container-page mt-24">
+        <KnowledgeAssistantDemo />
+        <DashboardDemo />
+        <QaDemo />
+      </div>
     </>
   );
 }

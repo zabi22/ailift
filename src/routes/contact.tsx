@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { z } from "zod";
 import { useLang } from "@/lib/i18n";
@@ -81,6 +81,7 @@ function Contact() {
       />
       <section className="container-page grid max-w-5xl gap-12 md:grid-cols-12">
         <div className="space-y-6 md:col-span-8">
+          <p className="rounded-xl border border-border bg-card p-4 text-sm">{t("Vill du hellre klicka dig fram?", "Prefer to click through?")} <Link to="/brief" className="font-semibold underline underline-offset-4">{t("Bygg en projektbrief steg för steg", "Build a project brief step by step")}</Link></p>
           <div className="grid gap-6 sm:grid-cols-2">
             <Field id="name" label={t("Namn", "Name")} error={err.name}><Input id="name" autoComplete="name" maxLength={100} value={f.name} onChange={(e) => set("name", e.target.value)} /></Field>
             <Field id="email" label={t("Jobbmejl", "Business email")} error={err.email}><Input id="email" type="email" autoComplete="email" maxLength={255} value={f.email} onChange={(e) => set("email", e.target.value)} /></Field>

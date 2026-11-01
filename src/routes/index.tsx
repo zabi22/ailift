@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, ArrowUpRight, Bot, GraduationCap, Globe, Boxes, PenTool, Newspaper } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Bot, GraduationCap, Globe, Boxes, PenTool, Newspaper, ScanSearch } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { SERVICES } from "@/lib/services";
 import { PROJECTS } from "@/lib/projects";
@@ -20,7 +20,7 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-const ICONS = [Bot, GraduationCap, Globe, Boxes, PenTool, Newspaper];
+const ICONS = [Bot, GraduationCap, Globe, Boxes, PenTool, Newspaper, ScanSearch];
 
 function Home() {
   const { lang, t } = useLang();
@@ -83,7 +83,7 @@ function Home() {
         </div>
         <div className="mt-12 grid gap-6 md:grid-cols-3">
           {featured.map((p) => (
-            <Link key={p.slug} to="/work/$slug" params={{ slug: p.slug }} className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-card transition-shadow hover:shadow-xl">
+            <Link key={p.slug} to={(p.caseStudy ?? "/work/$slug") as "/work/$slug"} params={{ slug: p.slug }} className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-card transition-shadow hover:shadow-xl">
               {p.screenshots?.[0] ? (
                 <img src={p.screenshots[0].src} alt={p.screenshots[0].alt[lang]} loading="lazy" className="aspect-[16/10] w-full object-cover object-top" />
               ) : (

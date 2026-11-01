@@ -12,6 +12,7 @@ export function SiteHeader() {
     { to: "/services", label: t("Tjänster", "Services") },
     { to: "/work", label: t("Projekt", "Work") },
     { to: "/demo", label: t("Sandlåda", "Sandbox") },
+    { to: "/brief", label: t("Projektbrief", "Project brief") },
     { to: "/about", label: t("Om AiLift", "About") },
     { to: "/contact", label: t("Kontakt", "Contact") },
   ] as const;

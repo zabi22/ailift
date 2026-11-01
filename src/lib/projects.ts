@@ -1,5 +1,7 @@
 import desktopSrc from "@/assets/juristbyra-desktop.jpg";
 import mobileSrc from "@/assets/juristbyra-mobile.jpg";
+import azureDesktop from "@/assets/azure-desktop.jpg";
+import azureMobile from "@/assets/azure-mobile.jpg";
 
 type L = { sv: string; en: string };
 type LL = { sv: string[]; en: string[] };
@@ -36,6 +38,8 @@ export type Project = {
   industry?: L;
   tags?: string[];
   caseStudy?: "/projects/azure-analytics";
+  /** client = delivered for a real client; lab = own prototype, tool or research. */
+  kind: "client" | "lab";
 };
 
 export const PROJECTS: Project[] = [
@@ -49,6 +53,11 @@ export const PROJECTS: Project[] = [
     industry: { sv: "Forskning, opinion & dataanalys", en: "Research, public opinion & data analytics" },
     tags: ["Web Development", "UI/UX", "Interactive Design"],
     caseStudy: "/projects/azure-analytics",
+    kind: "client",
+    screenshots: [
+      { src: azureDesktop, kind: "desktop", alt: { sv: "Startsidan för Azure Analytics på dator", en: "Azure Analytics homepage on desktop" } },
+      { src: azureMobile, kind: "mobile", alt: { sv: "Azure Analytics i mobilen", en: "Azure Analytics on mobile" } },
+    ],
     summary: {
       sv: "En forskningsplattform med interaktiva tjänster, egna animationer, responsiv design och innehållshantering – som gör komplex forskning tillgänglig.",
       en: "A research and analytics platform with interactive service experiences, custom animations, responsive design and content management – making complex research accessible.",
@@ -60,6 +69,7 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: "juristbyra-europa",
+    kind: "client",
     title: "Juristbyrå Europa",
     category: { sv: "Webbutveckling", en: "Website development" },
     status: "live",
@@ -102,6 +112,7 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: "ailift-booking",
+    kind: "lab",
     title: "AiLift booking flow",
     category: { sv: "Webbplats & bokning", en: "Website & booking" },
     status: "working",
@@ -136,6 +147,7 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: "ai-business-automation",
+    kind: "lab",
     title: "AI Business Automation",
     category: { sv: "AI & automation", en: "AI & automation" },
     status: "development",
@@ -170,6 +182,7 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: "ai-customer-support",
+    kind: "lab",
     title: "AI Customer Support",
     category: { sv: "AI-assistent", en: "AI assistant" },
     status: "prototype",
@@ -204,6 +217,7 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: "geomagnetic-ai-research",
+    kind: "lab",
     title: "Geomagnetic AI Research",
     category: { sv: "Forskning & utveckling", en: "Research & development" },
     status: "research",

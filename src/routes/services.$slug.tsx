@@ -72,6 +72,14 @@ function ServiceDetail() {
         <div><h2 className="text-3xl">{t("Det här får du", "Deliverables")}</h2><List items={s.deliverables[lang]} /></div>
         <div><h2 className="text-3xl">{t("Exempel på uppdrag", "Example engagements")}</h2><List items={s.examples[lang]} /><p className="mt-3 text-xs text-muted-foreground">{t("Exempel på vad vi kan göra – inte kundreferenser.", "Examples of what we can do – not client references.")}</p></div>
       </section>
+      {s.capabilities && (
+        <section className="container-page border-t border-border py-16">
+          <p className="eyebrow">{t("Ingår också", "Also covered")}</p>
+          <dl className="mt-6 grid gap-8 md:grid-cols-2">
+            {s.capabilities.map((c) => <div key={c.title.en} className="border-l-2 border-lime pl-5"><dt className="font-display text-2xl">{c.title[lang]}</dt><dd className="mt-2 text-muted-foreground">{c.body[lang]}</dd></div>)}
+          </dl>
+        </section>
+      )}
       <section className="container-page">
         <h2 className="text-3xl">{t("Process", "Process")}</h2>
         <ol className="mt-6 grid gap-4 md:grid-cols-4">
