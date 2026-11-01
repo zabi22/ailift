@@ -2,6 +2,7 @@ import { useLang } from "@/lib/i18n";
 import { STATUS_LABEL, type Status } from "@/lib/projects";
 
 const DOT: Record<Status, string> = {
+  delivered: "bg-success",
   live: "bg-success",
   working: "bg-success",
   prototype: "bg-warning",
