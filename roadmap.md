@@ -9,5 +9,5 @@
 - [x] Studio repositioning: 4 services, portfolio, sandbox, contact form
 - [ ] Sitemap + canonical URLs (needs the real published domain)
 - [ ] Geomagnetic research details (needs material from owner)
-- [ ] AiLift logo: replace the default Lovable tab icon + add a real brand mark to the header
+- [x] New custom logo installed
 - [x] "Sent, we answer within 24 hours" confirmation wording on booking + contact
