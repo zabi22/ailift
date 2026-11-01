@@ -3,9 +3,10 @@ import mobileSrc from "@/assets/juristbyra-mobile.jpg";
 
 type L = { sv: string; en: string };
 type LL = { sv: string[]; en: string[] };
-export type Status = "live" | "working" | "prototype" | "development" | "research";
+export type Status = "delivered" | "live" | "working" | "prototype" | "development" | "research";
 
 export const STATUS_LABEL: Record<Status, L> = {
+  delivered: { sv: "Levererat", en: "Delivered" },
   live: { sv: "Live", en: "Live" },
   working: { sv: "Fungerande exempel", en: "Working example" },
   prototype: { sv: "Prototyp", en: "Prototype" },
@@ -31,9 +32,31 @@ export type Project = {
   link?: { href: string; label: L };
   outcomes: L;
   note?: L;
+  year?: string;
+  industry?: L;
+  tags?: string[];
+  caseStudy?: "/projects/azure-analytics";
 };
 
 export const PROJECTS: Project[] = [
+  {
+    slug: "azure-analytics",
+    title: "Azure Analytics for Public Opinion",
+    category: { sv: "Webbdesign & utveckling", en: "Website design & development" },
+    status: "delivered",
+    year: "2026",
+    industry: { sv: "Forskning, opinion & dataanalys", en: "Research, public opinion & data analytics" },
+    tags: ["Web Development", "UI/UX", "Interactive Design"],
+    caseStudy: "/projects/azure-analytics",
+    summary: {
+      sv: "En forskningsplattform med interaktiva tjänster, egna animationer, responsiv design och innehållshantering – som gör komplex forskning tillgänglig.",
+      en: "A research and analytics platform with interactive service experiences, custom animations, responsive design and content management – making complex research accessible.",
+    },
+    overview: { sv: "", en: "" }, problem: { sv: "", en: "" }, solution: { sv: "", en: "" },
+    contribution: { sv: "Design och utveckling av AiLift.", en: "Designed and developed by AiLift." },
+    existing: { sv: [], en: [] }, planned: { sv: [], en: [] }, tech: [],
+    outcomes: { sv: "Inga mätresultat publiceras.", en: "No measured results are published." },
+  },
   {
     slug: "juristbyra-europa",
     title: "Juristbyrå Europa",
