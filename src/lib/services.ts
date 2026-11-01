@@ -130,6 +130,64 @@ export const SERVICES: ServiceContent[] = [
       en: ["Case overview for a small team", "Connection between booking and calendar"],
     },
   },
+  {
+    slug: "ui-ux-design",
+    title: { sv: "UI/UX & visuell design", en: "UI/UX & Visual Design" },
+    short: {
+      sv: "Gränssnitt, designsystem, illustrationer och rörelse som gör komplicerat innehåll lätt att förstå.",
+      en: "Interfaces, design systems, illustrations and motion that make complicated content easy to understand.",
+    },
+    intro: {
+      sv: "Vi skissar, testar och ritar gränssnitt som känns genomtänkta – från typografi och färg till egna illustrationer och diskreta animationer som förklarar i stället för att imponera.",
+      en: "We sketch, test and draw interfaces that feel considered – from type and colour to custom illustrations and quiet animations that explain rather than show off.",
+    },
+    seo: { sv: "UI/UX-design och designsystem för företag", en: "UI/UX design and design systems for businesses" },
+    forWho: {
+      sv: "Organisationer med mycket eller komplext innehåll – forskning, tjänster, data – som behöver presenteras tydligt.",
+      en: "Organisations with a lot of, or complex, content – research, services, data – that needs presenting clearly.",
+    },
+    problems: {
+      sv: ["Innehållet är rätt men svårt att ta till sig", "Webben ser ut som alla andra", "Ingen enhetlig visuell stil", "Besökare hittar inte rätt"],
+      en: ["The content is right but hard to take in", "The site looks like everyone else's", "No consistent visual style", "Visitors can't find their way"],
+    },
+    deliverables: {
+      sv: ["Informationsarkitektur och skisser", "Designsystem med typografi och färg", "Egna illustrationer och animationer", "Klickbar prototyp"],
+      en: ["Information architecture and wireframes", "Design system with type and colour", "Custom illustrations and animations", "Clickable prototype"],
+    },
+    examples: {
+      sv: ["Interaktiv tjänsteutforskare för en forskningsorganisation", "Metodhjul som förklarar en arbetsprocess"],
+      en: ["Interactive service explorer for a research organisation", "A method wheel explaining a work process"],
+    },
+  },
+  {
+    slug: "content-platforms",
+    title: { sv: "Publicering & innehållsplattformar", en: "Publishing & Content Platforms" },
+    short: {
+      sv: "Webbplatser där ni själva lägger upp rapporter, nyheter, kurser och artiklar – utan att röra koden.",
+      en: "Websites where you publish reports, news, courses and articles yourselves – without touching code.",
+    },
+    intro: {
+      sv: "Vi bygger kunskapsbanker, nyhetsflöden och utbildningssidor med ett enkelt publiceringsgränssnitt, filter och sök – så att innehållet kan växa efter lansering.",
+      en: "We build knowledge hubs, news feeds and course pages with a simple publishing interface, filters and search – so the content can keep growing after launch.",
+    },
+    seo: { sv: "Publiceringsplattform och kunskapsbank för organisationer", en: "Publishing platform and knowledge hub for organisations" },
+    forWho: {
+      sv: "Forskningsorganisationer, ideella föreningar, skolor och företag som publicerar regelbundet.",
+      en: "Research organisations, non-profits, schools and companies that publish regularly.",
+    },
+    problems: {
+      sv: ["Varje ny rapport kräver en utvecklare", "Publikationer är svåra att hitta", "Nyheter och kurser ligger utspridda", "Ingen struktur för arkivet"],
+      en: ["Every new report needs a developer", "Publications are hard to find", "News and courses are scattered", "No structure for the archive"],
+    },
+    deliverables: {
+      sv: ["Publiceringsgränssnitt", "Kategorier, filter och sök", "Sidor för kurser eller akademi", "Utbildning i hur ni publicerar"],
+      en: ["Publishing interface", "Categories, filters and search", "Course or academy pages", "Training on how to publish"],
+    },
+    examples: {
+      sv: ["Kunskapsbank för forskning, insikter och nyheter", "Akademisektion för utbildningsprogram"],
+      en: ["Knowledge hub for research, insights and news", "Academy section for training programmes"],
+    },
+  },
 ];
 
 export const getService = (slug: string) => SERVICES.find((s) => s.slug === slug);

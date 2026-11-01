@@ -38,7 +38,7 @@ export function SiteHeader() {
       </a>
       <div className="container-page flex h-16 items-center justify-between gap-6">
         <Link to="/" className="flex items-center" aria-label="AiLift" onClick={() => setOpen(false)}>
-          <img src={logo} alt="AiLift" width={870} height={250} className="h-7 w-auto" />
+          <img src={logo} alt="AiLift" width={1095} height={294} className="h-8 w-auto" />
         </Link>
         <nav className="hidden items-center gap-8 text-sm md:flex" aria-label={t("Huvudmeny", "Main menu")}>
           {links.map((l) => (
