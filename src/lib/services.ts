@@ -11,6 +11,8 @@ export type ServiceContent = {
   problems: LL;
   deliverables: LL;
   examples: LL;
+  /** Clearly explained capabilities folded into this service (no separate category). */
+  capabilities?: { title: L; body: L }[];
 };
 
 export const SERVICES: ServiceContent[] = [
@@ -38,6 +40,9 @@ export const SERVICES: ServiceContent[] = [
       sv: ["Kartläggning av processer och prioritering", "Automatiserade flöden eller AI-agent", "Godkännandesteg och logg för känsliga åtgärder", "Dokumentation och överlämning"],
       en: ["Process mapping and prioritisation", "Automated workflows or an AI agent", "Approval steps and logs for sensitive actions", "Documentation and handover"],
     },
+    capabilities: [
+      { title: { sv: "AI-assistenter", en: "AI assistants" }, body: { sv: "En assistent som svarar på frågor utifrån er egen, godkända information – och lämnar över till en människa när den är osäker.", en: "An assistant that answers questions from your own approved information – and hands over to a person when it's unsure." } },
+    ],
     examples: {
       sv: ["Sortera och sammanfatta inkommande e-post", "Skapa utkast till offerter från en förfrågan", "Veckorapporter som sammanställs automatiskt"],
       en: ["Sort and summarise incoming email", "Draft quotes from an incoming request", "Weekly reports compiled automatically"],
@@ -96,6 +101,9 @@ export const SERVICES: ServiceContent[] = [
       sv: ["Struktur och design", "Responsiv, tillgänglig webbplats", "Flerspråkigt stöd", "Grundläggande sökmotoroptimering"],
       en: ["Structure and design", "Responsive, accessible website", "Multilingual support", "Basic search engine optimisation"],
     },
+    capabilities: [
+      { title: { sv: "Löpande underhåll", en: "Ongoing maintenance" }, body: { sv: "Uppdateringar, små ändringar, säkerhetskontroller och hjälp när något slutar fungera – enligt en överenskommelse som passar er.", en: "Updates, small changes, security checks and help when something stops working – on an arrangement that suits you." } },
+    ],
     examples: {
       sv: ["Flerspråkig webbplats för en juristbyrå", "Bokningsförfrågan via e-postutkast"],
       en: ["Multilingual website for a law firm", "Booking requests via email draft"],
@@ -125,6 +133,9 @@ export const SERVICES: ServiceContent[] = [
       sv: ["Behovsanalys och prototyp", "Webbaserat internt verktyg", "Integrationer med befintliga system", "Behörigheter, test och driftsättning"],
       en: ["Needs analysis and prototype", "Web-based internal tool", "Integrations with existing systems", "Permissions, testing and deployment"],
     },
+    capabilities: [
+      { title: { sv: "Affärsdashboards", en: "Business dashboards" }, body: { sv: "En samlad vy över siffrorna ni redan har – försäljning, förfrågningar, projekt – hämtade från era egna system.", en: "One view of the numbers you already have – sales, enquiries, projects – pulled from your own systems." } },
+    ],
     examples: {
       sv: ["Ärendeöversikt för ett litet team", "Koppling mellan bokning och kalender"],
       en: ["Case overview for a small team", "Connection between booking and calendar"],
@@ -186,6 +197,35 @@ export const SERVICES: ServiceContent[] = [
     examples: {
       sv: ["Kunskapsbank för forskning, insikter och nyheter", "Akademisektion för utbildningsprogram"],
       en: ["Knowledge hub for research, insights and news", "Academy section for training programmes"],
+    },
+  },
+  {
+    slug: "website-testing",
+    title: { sv: "Webbtestning & optimering", en: "Website Testing & Optimization" },
+    short: {
+      sv: "Vi går igenom er webbplats i riktiga webbläsare – länkar, formulär, mobil, tillgänglighet, hastighet och SEO – och rättar det vi hittar.",
+      en: "We go through your website in real browsers – links, forms, mobile, accessibility, speed and SEO – and fix what we find.",
+    },
+    intro: {
+      sv: "Många webbplatser ser bra ut men tappar besökare på trasiga länkar, formulär som inte skickas eller sidor som laddar långsamt i mobilen. Vi testar systematiskt, både automatiskt och för hand, och lämnar en tydlig lista med vad som ska åtgärdas – eller åtgärdar det åt er.",
+      en: "Many websites look fine but lose visitors to broken links, forms that don't send or pages that load slowly on phones. We test systematically, both automated and by hand, and hand over a clear list of what to fix – or fix it for you.",
+    },
+    seo: { sv: "Webbtestning, tillgänglighet och prestanda för företag", en: "Website testing, accessibility and performance for businesses" },
+    forWho: {
+      sv: "Företag och organisationer som har en webbplats men är osäkra på om allt faktiskt fungerar för besökarna.",
+      en: "Businesses and organisations that have a website but aren't sure everything actually works for visitors.",
+    },
+    problems: {
+      sv: ["Formulär som inte når fram", "Sidan beter sig konstigt i mobilen", "Långsam laddning", "Svårt att använda med tangentbord eller skärmläsare", "Saknade titlar och beskrivningar för sök"],
+      en: ["Forms that never arrive", "The site behaves oddly on phones", "Slow loading", "Hard to use with a keyboard or screen reader", "Missing titles and descriptions for search"],
+    },
+    deliverables: {
+      sv: ["Webbläsartester på dator och mobil", "Granskning av tillgänglighet och tangentbordsnavigering", "Kontroll av länkar, formulär och SEO-metadata", "Prestandagenomgång", "Prioriterad åtgärdslista, eller åtgärder utförda"],
+      en: ["Browser tests on desktop and mobile", "Accessibility and keyboard navigation review", "Link, form and SEO metadata checks", "Performance review", "Prioritised fix list, or fixes carried out"],
+    },
+    examples: {
+      sv: ["Genomgång före lansering av en ny webbplats", "Återkommande kontroll efter större ändringar"],
+      en: ["Pre-launch review of a new website", "Recurring check after major changes"],
     },
   },
 ];

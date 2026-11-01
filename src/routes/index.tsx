@@ -20,7 +20,7 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-const ICONS = [Bot, GraduationCap, Globe, Boxes, PenTool, Newspaper];
+const ICONS = [Bot, GraduationCap, Globe, Boxes, PenTool, Newspaper, ScanSearch];
 
 function Home() {
   const { lang, t } = useLang();
